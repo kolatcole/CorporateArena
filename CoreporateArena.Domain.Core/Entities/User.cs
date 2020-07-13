@@ -16,6 +16,7 @@ namespace CorporateArena.Domain
         public string PhoneNumber { get; set; }
         public bool? IsActive { get; set; }
         public bool? IsDeleted { get; set; }
+        public string Password { get; set; }
 
         // To show role when fetching
         public Role Role { get; set; }

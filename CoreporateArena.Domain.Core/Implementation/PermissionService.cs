@@ -9,10 +9,10 @@ namespace CorporateArena.Domain
     {
         private readonly IUserRepo _uRepo;
         private readonly IRepo<Role> _rRepo;
-        private readonly IRepo<Privilege> _pRepo;
+        private readonly IPrivilegeRepo _pRepo;
         private readonly IPermissionRepo _peRepo;
 
-        public PermissionService(IUserRepo uRepo,IRepo<Role> rRepo, IRepo<Privilege> pRepo, IPermissionRepo peRepo)
+        public PermissionService(IUserRepo uRepo,IRepo<Role> rRepo, IPrivilegeRepo pRepo, IPermissionRepo peRepo)
         {
             _rRepo = rRepo;
             _uRepo = uRepo;
@@ -20,16 +20,16 @@ namespace CorporateArena.Domain
             _peRepo = peRepo;
         }
 
-        public async Task<bool> AssignPrivilegetoRole(int roleID, int privilegeID)
+        public async Task<Response> AssignPrivilegetoRole(int roleID, int privilegeID)
         {
-            var status = await _peRepo.AssignPrivilegetoRoleAsync(roleID, privilegeID);
-            return status;
+            var response = await _peRepo.AssignPrivilegetoRoleAsync(roleID, privilegeID);
+            return response;
         }
 
-        public async Task<bool> AssignRoletoUser(int roleID, int userID)
+        public async Task<Response> AssignRoletoUser(int roleID, int userID)
         {
-            var status = await _peRepo.AssignRoletoUserAsync(roleID, userID);
-            return status;
+            var response = await _peRepo.AssignRoletoUserAsync(roleID, userID);
+            return response;
         }
 
         public Task<bool> CopyRoletoAnotherUser(int ownerID, int recipientID, int roleID)

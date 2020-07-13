@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -46,7 +47,7 @@ namespace CorporateArena.Infrastructure
         }
 
         // public  enum Role { SuperUser, Basic, Author }
-        public async Task<int> RegisterUser(User data)
+        public async Task<Response> RegisterUser(User data)
         {
             User user;
             try
@@ -59,12 +60,13 @@ namespace CorporateArena.Infrastructure
                     FirstName = data.FirstName,
                     LastName = data.LastName,
                     OtherName = data.OtherName,
-                    PhoneNumber = data.PhoneNumber
+                    PhoneNumber = data.PhoneNumber,
+                    Password=data.Password
 
                 };
                 await _context.AppUsers.AddAsync(user);
                 await _context.SaveChangesAsync();
-                return user.ID;
+                return new Response { Result = "New User created Successfully", status = true };
             }
             catch (Exception ex)
             {
@@ -72,6 +74,25 @@ namespace CorporateArena.Infrastructure
             
             }
         
+        }
+
+        public async Task<Response> LoginAsync(string username, string password)
+        {
+            User user;
+
+            try
+            {
+                user = await _context.AppUsers.Where(x => x.UserName == username && x.Password == password).FirstOrDefaultAsync();
+                if (user == null) return new Response {status=false,Result="Login Failed" };
+
+                return new Response { status = true, Result = "Login Successful" };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+
         }
     }
 }

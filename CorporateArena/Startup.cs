@@ -36,7 +36,7 @@ namespace CorporateArena
 
             services.AddScoped<IPermissionRepo, PermissionRepo>();
             services.AddScoped<IUserRepo, UserRepo>();
-            services.AddScoped<IRepo<Privilege>, PrivilegeRepo>();
+            services.AddScoped<IPrivilegeRepo, PrivilegeRepo>();
             services.AddScoped<IRepo<Role>, RoleRepo>();
 
 

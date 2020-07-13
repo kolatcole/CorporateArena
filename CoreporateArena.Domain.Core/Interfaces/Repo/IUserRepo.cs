@@ -7,10 +7,11 @@ namespace CorporateArena.Domain
 {
     public interface IUserRepo
     {
-        Task<int> RegisterUser(User data);
+        Task<Response> RegisterUser(User data);
 
         Task<bool> ApproveUser(int ID);
 
         Task<List<User>> GetAllUsers();
+        Task<Response> LoginAsync(string username, string password);
     }
 }

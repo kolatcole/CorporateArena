@@ -7,8 +7,8 @@ namespace CorporateArena.Domain
 {
     public interface IPermissionRepo
     {
-        Task<bool> AssignRoletoUserAsync(int roleID, int userID);
-        Task<bool> AssignPrivilegetoRoleAsync(int roleID, int privilegeID);
+        Task<Response> AssignRoletoUserAsync(int roleID, int userID);
+        Task<Response> AssignPrivilegetoRoleAsync(int roleID, int privilegeID);
         Task<bool> CopyRoletoAnotherUserAsync(int ownerID,int recipientID,int roleID);
         Task<User> GetUserWithRoleAsync(int ID);
     }

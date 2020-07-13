@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -44,12 +45,25 @@ namespace CorporateArena.Infrastructure
                 var role = await _context.Roles.FindAsync(ID);
 
 
-                var rolePriv = await _context.RolePrivileges.Where(x => x.RoleID == ID).ToListAsync();
-
-                if (rolePriv != null) role.Privileges = await _context.Privileges.ToListAsync();
+                var rolePrivs =await _context.RolePrivileges.Where(x => x.RoleID == ID).ToListAsync();
 
 
-                
+                if (rolePrivs != null)
+
+                {
+                    List<Privilege> privileges = new List<Privilege>();
+                    foreach (var rolePriv in rolePrivs)
+                    {
+
+                        var priv = await _context.Privileges.FindAsync(rolePriv.PrivilegeID);
+                        privileges.Add(priv);
+                    }
+                    role.Privileges = privileges;
+
+                }
+
+
+
 
                 return role;
             }

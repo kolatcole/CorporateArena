@@ -36,6 +36,19 @@ namespace CorporateArena.Presentation
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        [HttpGet("Authenticate/{username}/{password}")]
+        public async Task<IActionResult> Authenticate(string username,string password)
+        {
+            var result = await _repo.LoginAsync(username, password);
+            return Ok(result);
+        }
+
+        /// <summary>
         /// Pass in the user ID that requires approval
         /// If successful, the method returns true
         /// </summary>

@@ -12,8 +12,8 @@ namespace CorporateArena.Presentation
     [ApiController]
     public class PrivilegeController : ControllerBase
     {
-        private readonly IRepo<Privilege> _repo;
-        public PrivilegeController(IRepo<Privilege> repo)
+        private readonly IPrivilegeRepo _repo;
+        public PrivilegeController(IPrivilegeRepo repo)
         {
 
             _repo = repo;
@@ -28,7 +28,7 @@ namespace CorporateArena.Presentation
         public async Task<IActionResult> SavePrivilege(Privilege data)
         {
             var result = await _repo.insertAsync(data);
-            return Ok(result);
+            return Ok(new { message = "Successful", status = result });
         }
 
         /// <summary>
@@ -41,6 +41,21 @@ namespace CorporateArena.Presentation
             var result = await _repo.getAllAsync();
             return Ok(result);
 
+        }
+
+        [HttpGet("GetModels")]
+        public async Task<IActionResult> GetModels()
+        {
+            var result = await _repo.GetModelsAsync();
+            return Ok(result);
+        }
+        [HttpGet("GetActions")]
+        public async Task<IActionResult> GetActions()
+        {
+            // var result = await _repo.GetActionsAsync();
+            Models mod = new Models();
+            var result = mod.GetActions();
+            return Ok(result);
         }
     }
 }

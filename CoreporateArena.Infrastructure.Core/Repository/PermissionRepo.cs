@@ -16,9 +16,14 @@ namespace CorporateArena.Infrastructure
             _context = context;
 
         }
-        public async Task<bool> AssignPrivilegetoRoleAsync(int roleID, int privilegeID)
+        public async Task<Response> AssignPrivilegetoRoleAsync(int roleID, int privilegeID)
         {
-            bool status = false;
+
+            var rolePrivilege = await _context.RolePrivileges.Where(x => x.RoleID == roleID && x.PrivilegeID == privilegeID).FirstOrDefaultAsync();
+            // if rolePrivilege is not empty, then the privilege has already been assigned
+            if (rolePrivilege != null)
+                return new Response { Result="Privilege already assigned",status=false};
+
             try
             {
                 RolePrivilege data = new RolePrivilege
@@ -27,10 +32,11 @@ namespace CorporateArena.Infrastructure
                     PrivilegeID = privilegeID
                 };
 
+                
+
                 await _context.RolePrivileges.AddAsync(data);
                 await _context.SaveChangesAsync();
-                status = true;
-                return status;
+                return new Response { Result = "Successful", status = true };
             }
             catch (Exception ex)
             {
@@ -39,9 +45,12 @@ namespace CorporateArena.Infrastructure
             // throw new NotImplementedException();
         }
 
-        public async Task<bool> AssignRoletoUserAsync(int roleID, int userID)
+        public async Task<Response> AssignRoletoUserAsync(int roleID, int userID)
         {
-            bool status = false;
+            var userRole = await _context.UserRoles.Where(x => x.RoleID == roleID && x.UserID == userID).FirstOrDefaultAsync();
+            if(userRole!=null)
+                return new Response { status = false, Result = "Role has already been assigned to this user" };
+
             try
             {
                 UserRole data = new UserRole
@@ -50,10 +59,13 @@ namespace CorporateArena.Infrastructure
                     UserID=userID
                 };
 
+                
+
+
+
                 await _context.UserRoles.AddAsync(data);
                 await _context.SaveChangesAsync();
-                status = true;
-                return status;
+                return new Response {status=true,Result="Successful"};
             }
             catch (Exception ex)
             {

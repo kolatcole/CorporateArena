@@ -12,6 +12,9 @@ namespace CorporateArena.Domain
         Task<bool> ApproveUser(int ID);
 
         Task<List<User>> GetAllUsers();
-        Task<Response> LoginAsync(string username, string password);
+        Task<Response> Login(string username, string password);
+        Task<Response> AssignRoletoUser(int roleID, int userID);
+        Task<User> GetUserWithRole(int ID);
+
     }
 }

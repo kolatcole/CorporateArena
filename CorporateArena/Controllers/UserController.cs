@@ -12,12 +12,12 @@ namespace CorporateArena.Presentation
     [ApiController]
     public class UserController : ControllerBase
     {
-        public IUserRepo _repo;
+        public IUserService _service;
 
-        public UserController(IUserRepo repo)
+        public UserController(IUserService service)
         {
 
-            _repo = repo;
+            _service = service;
         }
 
 
@@ -30,7 +30,7 @@ namespace CorporateArena.Presentation
         public async Task<IActionResult> RegisterNewUser(User data)
         {
 
-            var result = await _repo.RegisterUser(data);
+            var result = await _service.RegisterUserAsync(data);
             return Ok(result);
 
         }
@@ -44,7 +44,7 @@ namespace CorporateArena.Presentation
         [HttpGet("Authenticate/{username}/{password}")]
         public async Task<IActionResult> Authenticate(string username,string password)
         {
-            var result = await _repo.LoginAsync(username, password);
+            var result = await _service.LoginAsync(username, password);
             return Ok(result);
         }
 
@@ -57,7 +57,7 @@ namespace CorporateArena.Presentation
         [HttpPost("Approve/{ID}")]
         public async Task<IActionResult> Approve(int ID)
         {
-            var result = await _repo.ApproveUser(ID);
+            var result = await _service.ApproveUserAsync(ID);
             return Ok(result);
         }
 
@@ -68,10 +68,34 @@ namespace CorporateArena.Presentation
         [HttpGet("GetAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
-            var result = await _repo.GetAllUsers();
+            var result = await _service.GetAllUsersAsync();
             return Ok(result);
         
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        [HttpGet("GetUserByID/{ID}")]
+        public async Task<IActionResult> GetUserByID(int ID)
+        {
+            var result = await _service.GetUserWithRoleAsync(ID);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roleID"></param>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        [HttpPost("AssignRoleToUser/{roleID}/{userID}")]
+        public async Task<IActionResult> AssignRoleToUser(int roleID, int userID)
+        {
+            var result = await _service.AssignRoletoUserAsync(roleID, userID);
+            return Ok(result);
+        }
     }
 }

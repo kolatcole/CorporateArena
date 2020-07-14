@@ -45,11 +45,11 @@ namespace CorporateArena.Domain
         //    return en;
         //}
 
-        public MyEnum GetActionss()
-        {
-            MyEnum en = new MyEnum();
-            return en;
-        }
+        //public MyEnum GetActionss()
+        //{
+        //    MyEnum en = new MyEnum();
+        //    return en;
+        //}
 
 
 

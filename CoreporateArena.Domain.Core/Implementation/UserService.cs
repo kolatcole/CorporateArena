@@ -52,5 +52,12 @@ namespace CorporateArena.Domain
             var response = await _uRepo.RegisterUser(data);
             return response;
         }
+
+        public async Task<Response> LoginWithTokenAsync(string token)
+        {
+            var response = await _uRepo.LoginWithToken(token);
+            return response;
+
+        }
     }
 }

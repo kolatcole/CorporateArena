@@ -35,16 +35,28 @@ namespace CorporateArena.Presentation
 
         }
 
+       
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
+        /// <param name="data"></param>
         /// <returns></returns>
-        [HttpGet("Authenticate/{username}/{password}")]
-        public async Task<IActionResult> Authenticate(string username,string password)
+        [HttpPost("Authenticate")]
+        public async Task<IActionResult> Authenticate(AuthWithPasswordViewModel data)
         {
-            var result = await _service.LoginAsync(username, password);
+            var result = await _service.LoginAsync(data.username, data.password);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost("AuthenticateWithToken")]
+        public async Task<IActionResult> AuthenticateWithToken(AuthWithTokenViewModel data)
+        {
+            var result = await _service.LoginWithTokenAsync(data.Token);
             return Ok(result);
         }
 

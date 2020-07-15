@@ -15,6 +15,7 @@ namespace CorporateArena.Domain
         Task<Response> LoginAsync(string username, string password);
         Task<Response> AssignRoletoUserAsync(int roleID, int userID);
         Task<User> GetUserWithRoleAsync(int ID);
+        Task<Response> LoginWithTokenAsync(string token);
 
     }
 }

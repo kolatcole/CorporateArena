@@ -35,23 +35,9 @@ namespace CorporateArena.Domain
             Aq.Add(3, "Update");
             Aq.Add(4, "Delete");
 
-            var fiat = Aq.ToList();
-            return fiat;
+            var actions = Aq.ToList();
+            return actions;
         }
-
-        //public MyEnum GetActionss()
-        //{
-        //    MyEnum en = new MyEnum();
-        //    return en;
-        //}
-
-        //public MyEnum GetActionss()
-        //{
-        //    MyEnum en = new MyEnum();
-        //    return en;
-        //}
-
-
 
 
         public static List<KeyValuePair<string, string>> Mod = new List<KeyValuePair<string, string>>()

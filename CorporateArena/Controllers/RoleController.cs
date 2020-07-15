@@ -12,8 +12,8 @@ namespace CorporateArena.Presentation
     [ApiController]
     public class RoleController : ControllerBase
     {
-        private readonly IRepo<Role> _repo;
-        public RoleController(IRepo<Role> repo) 
+        private readonly IRoleRepo _repo;
+        public RoleController(IRoleRepo repo) 
         {
 
             _repo = repo;
@@ -50,6 +50,19 @@ namespace CorporateArena.Presentation
             var result = await _repo.getAsync(ID);
             return Ok(result);
 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roleID"></param>
+        /// <param name="privilegeID"></param>
+        /// <returns></returns>
+        [HttpPost("AssignPrivilegetoRole/{roleID}/{privilegeID}")]
+        public async Task<IActionResult> AssignPrivilegetoRole(int roleID, int privilegeID)
+        {
+            var result = await _repo.AssignPrivilegetoRoleAsync(roleID, privilegeID);
+            return Ok(result);
         }
     }
 }

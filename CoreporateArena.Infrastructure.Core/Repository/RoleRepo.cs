@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CorporateArena.Infrastructure
 {
-    public class RoleRepo : IRepo<Role>
+    public class RoleRepo : IRoleRepo
     {
 
         private readonly TContext _context;
@@ -106,6 +106,35 @@ namespace CorporateArena.Infrastructure
         public Task<int> updateAsync(Role data)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Response> AssignPrivilegetoRoleAsync(int roleID, int privilegeID)
+        {
+
+            var rolePrivilege = await _context.RolePrivileges.Where(x => x.RoleID == roleID && x.PrivilegeID == privilegeID).FirstOrDefaultAsync();
+            // if rolePrivilege is not empty, then the privilege has already been assigned
+            if (rolePrivilege != null)
+                return new Response { Result = "Privilege already assigned", status = false };
+
+            try
+            {
+                RolePrivilege data = new RolePrivilege
+                {
+                    RoleID = roleID,
+                    PrivilegeID = privilegeID
+                };
+
+
+
+                await _context.RolePrivileges.AddAsync(data);
+                await _context.SaveChangesAsync();
+                return new Response { Result = "Successful", status = true };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            // throw new NotImplementedException();
         }
     }
 }

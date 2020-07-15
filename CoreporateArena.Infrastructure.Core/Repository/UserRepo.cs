@@ -87,6 +87,10 @@ namespace CorporateArena.Infrastructure
 
         public async Task<Response> RegisterUser(User data)
         {
+
+
+
+            // check if password is strong 
             bool isLood = data.Password.Any(p => !char.IsLetterOrDigit(p));
             bool isNum = data.Password.Any(p => char.IsNumber(p));
             bool isUpper = data.Password.Any(p => char.IsUpper(p));
@@ -96,12 +100,15 @@ namespace CorporateArena.Infrastructure
             if(!isLood || !isNum || !isUpper || !isLower || !isUptoEight)
                 return new Response { Result = "Invalid Password", status = false };
 
+            // check if email address is valid
             if(!ValidateAddress(data.Email))
                 return new Response { Result = "Email Address is Invalid", status = false };
 
             User user;
             try
             {
+
+                // hash password
                 var password = HashPassword(data.Password);
 
                 user = new User
@@ -128,25 +135,32 @@ namespace CorporateArena.Infrastructure
         
         }
 
+        public string CreateToken()
+        {
+            var stoken = new JwtSecurityToken(
+                    expires: DateTime.Now.AddMinutes(Convert.ToDouble(_jwtOpt.ExpiryTime)),
+                    signingCredentials: new Microsoft.IdentityModel.Tokens.SigningCredentials(new SymmetricSecurityKey
+                    (Encoding.ASCII.GetBytes(_jwtOpt.Secret)), SecurityAlgorithms.HmacSha256)
+                    );
+            var token = new JwtSecurityTokenHandler().WriteToken(stoken);
+            return token;
+
+        }
+
         public async Task<Response> Login(string username, string password)
         {
             User user;
 
             try
             {
-                var stoken = new JwtSecurityToken(
-                   // issuer:"",
-                    expires:DateTime.Now.AddMinutes(Convert.ToDouble(_jwtOpt.ExpiryTime)),
-                    signingCredentials:new Microsoft.IdentityModel.Tokens.SigningCredentials(new SymmetricSecurityKey
-                    (Encoding.ASCII.GetBytes(_jwtOpt.Secret)),SecurityAlgorithms.HmacSha256)
-                    );
-                var token = new JwtSecurityTokenHandler().WriteToken(stoken);
+                
                 
                 user = await _context.AppUsers.Where(x => x.UserName == username && x.Password == password).FirstOrDefaultAsync();
                 
                  if (user == null) return new Response {status=false,Result="Login Failed" };
 
-                user.Token = token;
+                 // create token
+                user.Token = CreateToken();
                 _context.AppUsers.Update(user);
                 await _context.SaveChangesAsync();
 
@@ -206,7 +220,7 @@ namespace CorporateArena.Infrastructure
                 var user = await _context.AppUsers.FindAsync(ID);
                 var userRole = await _context.UserRoles.Where(x => x.UserID == ID).SingleOrDefaultAsync();
 
-                if (userRole != null) user.Role = await _context.Roles.SingleAsync();
+                if (userRole != null) user.Role = await _context.Roles.Where(x => x.ID == userRole.RoleID).SingleAsync();
 
 
                 return user;

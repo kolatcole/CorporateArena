@@ -7,7 +7,7 @@ namespace CorporateArena.Domain
 {
     public interface IUserRepo
     {
-        Task<Response> RegisterUser(User data);
+        Task<SaveResponse> RegisterUser(User data);
 
         Task<bool> ApproveUser(int ID);
 

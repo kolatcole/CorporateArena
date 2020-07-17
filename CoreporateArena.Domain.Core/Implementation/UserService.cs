@@ -47,9 +47,12 @@ namespace CorporateArena.Domain
             return response;
         }
 
-        public async Task<Response> RegisterUserAsync(User data)
+        public async Task<SaveResponse> RegisterUserAsync(User data)
         {
             var response = await _uRepo.RegisterUser(data);
+
+            if (data.RoleID != 0)
+               await AssignRoletoUserAsync(data.RoleID, data.ID);
             return response;
         }
 

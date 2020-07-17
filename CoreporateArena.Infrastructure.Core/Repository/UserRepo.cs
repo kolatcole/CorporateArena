@@ -87,7 +87,7 @@ namespace CorporateArena.Infrastructure
             }
         }
 
-        public async Task<Response> RegisterUser(User data)
+        public async Task<SaveResponse> RegisterUser(User data)
         {
 
 
@@ -100,11 +100,11 @@ namespace CorporateArena.Infrastructure
             bool isUptoEight = UptoEight(data.Password);
 
             if(!isLood || !isNum || !isUpper || !isLower || !isUptoEight)
-                return new Response { Result = "Invalid Password", status = false };
+                return new SaveResponse { Result = "Invalid Password", status = false};
 
             // check if email address is valid
             if(!ValidateAddress(data.Email))
-                return new Response { Result = "Email Address is Invalid", status = false };
+                return new SaveResponse { Result = "Email Address is Invalid", status = false };
 
             User user;
             try
@@ -131,7 +131,8 @@ namespace CorporateArena.Infrastructure
                 };
                 await _context.AppUsers.AddAsync(user);
                 await _context.SaveChangesAsync();
-                return new Response { Result = "New User created Successfully", status = true };
+                data.ID = user.ID;
+                return new SaveResponse { Result = "New User created Successfully", status = true,ID=user.ID };
             }
             catch (Exception ex)
             {

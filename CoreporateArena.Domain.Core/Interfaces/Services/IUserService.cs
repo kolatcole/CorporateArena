@@ -7,7 +7,7 @@ namespace CorporateArena.Domain
 {
     public interface IUserService
     {
-        Task<Response> RegisterUserAsync(User data);
+        Task<SaveResponse> RegisterUserAsync(User data);
 
         Task<bool> ApproveUserAsync(int ID);
 

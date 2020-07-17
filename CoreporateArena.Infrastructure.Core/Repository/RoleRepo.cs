@@ -74,7 +74,7 @@ namespace CorporateArena.Infrastructure
             }
         }
 
-        public async Task<int> insertAsync(Role data)
+        public async Task<Response> insertAsync(Role data)
         {
             Role role;
             try
@@ -95,7 +95,7 @@ namespace CorporateArena.Infrastructure
             {
                 throw ex;
             }
-            return role.ID;
+            return new Response {status=true,Result="Role was successfully created" };
         }
 
         public Task<int> insertListAsync(List<Role> data)

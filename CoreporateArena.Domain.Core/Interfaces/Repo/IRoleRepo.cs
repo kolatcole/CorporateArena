@@ -8,7 +8,7 @@ namespace CorporateArena.Domain
     public interface IRoleRepo
     {
         Task<Response> AssignPrivilegetoRoleAsync(int roleID, int privilegeID);
-        Task<int> insertAsync(Role data);
+        Task<Response> insertAsync(Role data);
         Task<int> insertListAsync(List<Role> data);
         Task<int> deleteAsync(Role data);
         Task<int> updateAsync(Role data);

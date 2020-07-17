@@ -145,7 +145,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RoleID")
+                    b.Property<int>("RoleID")
                         .HasColumnType("int");
 
                     b.Property<string>("Token")
@@ -208,7 +208,9 @@ namespace CorporateArena.Presentation.Core.Migrations
                 {
                     b.HasOne("CorporateArena.Domain.Role", "Role")
                         .WithMany()
-                        .HasForeignKey("RoleID");
+                        .HasForeignKey("RoleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

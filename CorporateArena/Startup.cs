@@ -32,7 +32,7 @@ namespace CorporateArena
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddControllers();
 
             var JwtOptSection = Configuration.GetSection(nameof(JwtOpt));
             services.Configure<JwtOpt>(JwtOptSection);
@@ -47,19 +47,20 @@ namespace CorporateArena
                 opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
                 opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(opt=> {
+                opt.SaveToken = true;
                 opt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                 {
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
                     ValidateIssuer=false,
                     ValidateAudience=false,
-                    ValidateIssuerSigningKey=false,
-                    RequireExpirationTime=true
+                    ValidateLifetime=true,
+                    ValidateIssuerSigningKey=true
                 };
             });
 
 
 
-            services.AddControllers();
+            
             services.AddDbContext<TContext>(opt => {
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("CorporateArena.Presentation.Core"));
             });
@@ -87,7 +88,9 @@ namespace CorporateArena
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            
 
             app.UseEndpoints(endpoints =>
             {

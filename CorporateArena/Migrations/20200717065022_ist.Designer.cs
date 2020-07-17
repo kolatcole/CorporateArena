@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CorporateArena.Presentation.Core.Migrations
 {
     [DbContext(typeof(TContext))]
-    [Migration("20200713111814_4th")]
-    partial class _4th
+    [Migration("20200717065022_ist")]
+    partial class ist
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -147,8 +147,11 @@ namespace CorporateArena.Presentation.Core.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RoleID")
+                    b.Property<int>("RoleID")
                         .HasColumnType("int");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UserCreated")
                         .HasColumnType("int");
@@ -207,7 +210,9 @@ namespace CorporateArena.Presentation.Core.Migrations
                 {
                     b.HasOne("CorporateArena.Domain.Role", "Role")
                         .WithMany()
-                        .HasForeignKey("RoleID");
+                        .HasForeignKey("RoleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

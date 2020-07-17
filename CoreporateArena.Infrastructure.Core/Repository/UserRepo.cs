@@ -1,5 +1,6 @@
 ﻿using CorporateArena.Domain;
 using CorporateArena.Presentation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Mail;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -135,12 +137,22 @@ namespace CorporateArena.Infrastructure
         
         }
 
-        public string CreateToken()
+        public string CreateToken(User user)
         {
+            var claims = new[] {
+                new Claim(JwtRegisteredClaimNames.Sub,user.UserName),
+                new Claim(JwtRegisteredClaimNames.NameId,user.ID.ToString()),
+                new Claim(JwtRegisteredClaimNames.UniqueName,user.FirstName),
+                new Claim(JwtRegisteredClaimNames.FamilyName,user.LastName),
+                new Claim(JwtRegisteredClaimNames.Email,user.Email)
+            };
             var stoken = new JwtSecurityToken(
-                    expires: DateTime.Now.AddMinutes(Convert.ToDouble(_jwtOpt.ExpiryTime)),
-                    signingCredentials: new Microsoft.IdentityModel.Tokens.SigningCredentials(new SymmetricSecurityKey
-                    (Encoding.ASCII.GetBytes(_jwtOpt.Secret)), SecurityAlgorithms.HmacSha256)
+                        issuer: "",
+                        audience: "",
+                        claims:claims,
+                        expires: DateTime.Now.AddMinutes(Convert.ToDouble(1)),
+                        signingCredentials: new Microsoft.IdentityModel.Tokens.SigningCredentials(new SymmetricSecurityKey
+                        (Encoding.ASCII.GetBytes(_jwtOpt.Secret)), SecurityAlgorithms.HmacSha256)
                     );
             var token = new JwtSecurityTokenHandler().WriteToken(stoken);
             return token;
@@ -160,11 +172,11 @@ namespace CorporateArena.Infrastructure
                  if (user == null) return new Response {status=false,Result="Login Failed" };
 
                  // create token
-                user.Token = CreateToken();
+                user.Token = CreateToken(user);
                 _context.AppUsers.Update(user);
                 await _context.SaveChangesAsync();
 
-                return new Response { status = true, Result = "Login Successful" };
+                return new Response { status = true, Result = user.Token };
             }
             catch (Exception ex)
             {

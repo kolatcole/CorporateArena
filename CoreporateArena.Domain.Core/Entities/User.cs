@@ -20,5 +20,8 @@ namespace CorporateArena.Domain
         public string Token { get; set; }
         // To show role when fetching
         public Role Role { get; set; }
+
+        // Awaiting Review 
+        public int RoleID { get; set; }
     }
 }

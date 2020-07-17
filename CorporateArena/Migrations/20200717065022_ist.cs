@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CorporateArena.Presentation.Core.Migrations
 {
-    public partial class Ist : Migration
+    public partial class ist : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -75,7 +75,9 @@ namespace CorporateArena.Presentation.Core.Migrations
                     PhoneNumber = table.Column<string>(nullable: true),
                     IsActive = table.Column<bool>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: true),
-                    RoleID = table.Column<int>(nullable: true)
+                    Password = table.Column<string>(nullable: true),
+                    Token = table.Column<string>(nullable: true),
+                    RoleID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -85,7 +87,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                         column: x => x.RoleID,
                         principalTable: "Roles",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CorporateArena.Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -73,11 +74,15 @@ namespace CorporateArena.Presentation
             return Ok(result);
         }
 
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
+
+        
         [HttpGet("GetAllUsers")]
+        [Authorize]
         public async Task<IActionResult> GetAllUsers()
         {
             var result = await _service.GetAllUsersAsync();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CorporateArena.Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,6 +33,7 @@ namespace CorporateArena.Presentation
         }
 
         [HttpGet("GetAllRoles")]
+        [Authorize]
         public async Task<IActionResult> GetAllRoles()
         {
             var result = await _repo.getAllAsync();

@@ -8,7 +8,7 @@ namespace CorporateArena.Domain
     public interface IRepo<T>
     {
         Task<int> insertAsync(T data);
-        Task<int> insertListAsync(List<T> data);
+        Task<bool> insertListAsync(List<T> data);
         Task<int> deleteAsync(T data);
         Task<int> updateAsync(T data);
         Task<T> getAsync(int ID);

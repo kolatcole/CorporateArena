@@ -89,7 +89,7 @@ namespace CorporateArena.Infrastructure
             return new Response { status = true, Result = "Permission was created successfully" };
         }
 
-        public Task<int> insertListAsync(List<Privilege> data)
+        public Task<bool> insertListAsync(List<Privilege> data)
         {
             throw new NotImplementedException();
         }

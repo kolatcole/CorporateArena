@@ -74,7 +74,7 @@ namespace CorporateArena.Infrastructure
             }
         }
 
-        public async Task<Response> insertAsync(Role data)
+        public async Task<SaveResponse> insertAsync(Role data)
         {
             Role role;
             try
@@ -87,18 +87,19 @@ namespace CorporateArena.Infrastructure
                     Name = data.Name
 
                 };
-
+                
                 await _context.Roles.AddAsync(role);
                 await _context.SaveChangesAsync();
+                data.ID = role.ID;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return new Response {status=true,Result="Role was successfully created" };
+            return new SaveResponse {status=true,Result="Role was successfully created",ID=role.ID };
         }
 
-        public Task<int> insertListAsync(List<Role> data)
+        public Task<bool>  insertListAsync(List<Role> data)
         {
             throw new NotImplementedException();
         }

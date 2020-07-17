@@ -65,13 +65,13 @@ namespace CorporateArena
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("CorporateArena.Presentation.Core"));
             });
 
-        //    services.AddScoped<IPermissionRepo, PermissionRepo>();
+            services.AddScoped <IRepo<RolePrivilege> ,RolePrivilegeRepo>();
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddScoped<IPrivilegeRepo, PrivilegeRepo>();
             services.AddScoped<IRoleRepo, RoleRepo>();
 
 
-        //    services.AddTransient<IPermissionService, PermissionService>();
+            services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IUserService, UserService>();
 
         }

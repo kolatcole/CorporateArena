@@ -110,6 +110,9 @@ namespace CorporateArena.Infrastructure
             try
             {
 
+                // Assign the basic role to user if no role is selected
+                if (data.RoleID == 0) data.RoleID = 1;
+
                 // hash password
                 var password = HashPassword(data.Password);
 
@@ -122,7 +125,8 @@ namespace CorporateArena.Infrastructure
                     LastName = data.LastName,
                     OtherName = data.OtherName,
                     PhoneNumber = data.PhoneNumber,
-                    Password=password
+                    Password=password,
+                    RoleID=data.RoleID
 
                 };
                 await _context.AppUsers.AddAsync(user);

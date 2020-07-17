@@ -11,7 +11,7 @@ namespace CorporateArena.Domain
         Task<List<string>> GetActionsAsync();
         Task<List<KeyValuePair<string, string>>> GetModelsAsync();
         Task<Response> insertAsync(Privilege data);
-        Task<int> insertListAsync(List<Privilege> data);
+        Task<bool> insertListAsync(List<Privilege> data);
         Task<int> deleteAsync(Privilege data);
         Task<int> updateAsync(Privilege data);
         Task<Privilege> getAsync(int ID);

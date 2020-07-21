@@ -41,9 +41,9 @@ namespace CorporateArena.Presentation
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress("tkolawole@inspirecoders.com", "Example User");
             var subject = "Sending with SendGrid is Fun";
-            var to = new EmailAddress("callerwoley@gmail.com", "Example User");
+            var to = new EmailAddress("tkolawole@inspirecoders.com", "Example User");
             var plainTextContent = "and easy to do anywhere, even with C#";
-            var htmlContent = "<strong>and easy to do anywhere, even with C#</strong>"; //"<a href='https://localhost:44369/api/user/Activate/2'>Activate Account</a>";
+            var htmlContent = "<a href='https://localhost:44369/api/user/Activate/1'>Activate Account</a>"; //"<a href='https://localhost:44369/api/user/Activate/2'>Activate Account</a>";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync(msg);
         }

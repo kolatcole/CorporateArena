@@ -70,7 +70,8 @@ namespace CorporateArena
             services.AddScoped<IPrivilegeRepo, PrivilegeRepo>();
             services.AddScoped<IRoleRepo, RoleRepo>();
 
-
+            
+                services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IUserService, UserService>();
 

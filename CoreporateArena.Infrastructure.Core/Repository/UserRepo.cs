@@ -1,5 +1,6 @@
 ﻿using CorporateArena.Domain;
 using CorporateArena.Presentation;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -59,13 +60,16 @@ namespace CorporateArena.Infrastructure
         public string HashPassword(string password)
         {
             byte[] salt = new byte[128 / 8];
-            string hash;
-            using (var rng=RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(salt);
-                hash = Convert.ToBase64String(salt);
-            }
-            return hash;
+          //  string hash;
+            PasswordHasher v = new PasswordHasher();
+            var hash=v.HashPassword(password);
+           
+           //var rng=RandomNumberGenerator.Create()
+            
+           //     rng.GetBytes(salt);
+           //     hash = Convert.ToBase64String(salt);
+            
+           return hash;
         }
         public bool UptoEight(string password)
         {

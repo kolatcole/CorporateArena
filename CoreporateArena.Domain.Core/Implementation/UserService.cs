@@ -19,9 +19,10 @@ namespace CorporateArena.Domain
 
         }
 
-        public Task<bool> ApproveUserAsync(int ID)
+        public async Task<bool> ApproveUserAsync(int ID)
         {
-            throw new NotImplementedException();
+            var status = await _uRepo.ApproveUser(ID);
+            return status;
         }
 
         public async Task<Response> AssignRoletoUserAsync(int roleID, int userID)
@@ -30,9 +31,10 @@ namespace CorporateArena.Domain
             return response;
         }
 
-        public Task<List<User>> GetAllUsersAsync()
+        public async Task<List<User>> GetAllUsersAsync()
         {
-            throw new NotImplementedException();
+            var users = await _uRepo.GetAllUsers();
+            return users;
         }
 
         public async Task<User> GetUserWithRoleAsync(int ID)
@@ -50,9 +52,8 @@ namespace CorporateArena.Domain
         public async Task<SaveResponse> RegisterUserAsync(User data)
         {
             var response = await _uRepo.RegisterUser(data);
+            await AssignRoletoUserAsync(data.RoleID, data.ID);
 
-            if (data.RoleID != 0)
-               await AssignRoletoUserAsync(data.RoleID, data.ID);
             return response;
         }
 

@@ -12,10 +12,19 @@ namespace CorporateArena.Presentation
     [ApiController]
     public class PrivilegeController : ControllerBase
     {
-        private readonly IPrivilegeRepo _repo;
-        public PrivilegeController(IPrivilegeRepo repo)
-        {
+        // for test
 
+        private readonly IEmailSender _service;
+
+
+        // for email test
+
+
+
+        private readonly IPrivilegeRepo _repo;
+        public PrivilegeController(IPrivilegeRepo repo, IEmailSender service)
+        {
+            _service = service;
             _repo = repo;
         }
 
@@ -56,6 +65,18 @@ namespace CorporateArena.Presentation
             Models mod = new Models();
             var result = mod.GetActions();
             return Ok(result);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("SendMail")]
+        public async Task<IActionResult> SendMail()
+        {
+           await _service.SendEmailAsync();
+            return Ok();
         }
     }
 }

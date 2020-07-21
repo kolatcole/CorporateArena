@@ -67,8 +67,8 @@ namespace CorporateArena.Presentation
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        [HttpPost("Approve/{ID}")]
-        public async Task<IActionResult> Approve(int ID)
+        [HttpPost("Activate/{ID}")]
+        public async Task<IActionResult> Activate(int ID)
         {
             var result = await _service.ApproveUserAsync(ID);
             return Ok(result);
@@ -82,7 +82,7 @@ namespace CorporateArena.Presentation
 
         
         [HttpGet("GetAllUsers")]
-        [Authorize]
+      //  [Authorize]
         public async Task<IActionResult> GetAllUsers()
         {
             var result = await _service.GetAllUsersAsync();

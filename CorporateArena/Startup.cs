@@ -69,11 +69,14 @@ namespace CorporateArena
             services.AddScoped<IUserRepo, UserRepo>();
             services.AddScoped<IPrivilegeRepo, PrivilegeRepo>();
             services.AddScoped<IRoleRepo, RoleRepo>();
+            services.AddScoped<IRepo<BrainTeaser>, BrainTeaserRepo>();
+            services.AddScoped<IRepo<BrainTeaserAnswer>, BrainTeaserAnswerRepo>();
 
-            
-                services.AddTransient<IEmailSender, EmailSender>();
+
+            services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IBrainTeaserService, BrainTeaserService>();
 
         }
 

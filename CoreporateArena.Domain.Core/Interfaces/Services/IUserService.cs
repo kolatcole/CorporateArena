@@ -16,6 +16,8 @@ namespace CorporateArena.Domain
         Task<Response> AssignRoletoUserAsync(int roleID, int userID);
         Task<User> GetUserWithRoleAsync(int ID);
         Task<Response> LoginWithTokenAsync(string token);
+        Task<bool> CheckIfUserExist(int ID);
+        Task<bool> CheckforPermission(int ID, string name);
 
     }
 }

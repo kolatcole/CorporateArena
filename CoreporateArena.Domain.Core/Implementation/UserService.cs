@@ -63,5 +63,49 @@ namespace CorporateArena.Domain
             return response;
 
         }
+
+        public async Task<bool> CheckIfUserExist(int ID)
+        {
+            bool Exist = false;
+
+            var user = await _uRepo.GetUserWithRole(ID);
+            if (user!= null && user.IsActive != false)
+                Exist = true;
+
+            return Exist;
+
+        }
+
+
+
+        public async Task<bool> CheckforPermission(int ID,string name)
+        {
+
+            bool isPermitted = false;
+            var user = await GetUserWithRoleAsync(ID);
+
+            if (user.Role.Name != "SuperAdmin")
+
+                if(user.Role.Privileges!=null)
+                {
+                    foreach (var privilege in user.Role.Privileges)
+                    {
+                        if (privilege.Name == name)
+                            isPermitted = true;
+                    }
+                }
+                else
+                {
+                    isPermitted = false;
+
+                }
+                
+            else
+            {
+                isPermitted = true;
+            }
+            return isPermitted;
+
+        }
     }
 }

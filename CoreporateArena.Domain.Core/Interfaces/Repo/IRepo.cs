@@ -9,9 +9,11 @@ namespace CorporateArena.Domain
     {
         Task<int> insertAsync(T data);
         Task<bool> insertListAsync(List<T> data);
-        Task<int> deleteAsync(T data);
-        Task<int> updateAsync(T data);
+        Task deleteAllByIDAsync(int ID);
+        Task deleteAsync(int ID);
+        Task updateAsync(T data);
         Task<T> getAsync(int ID);
         Task<List<T>> getAllAsync();
+        Task<List<T>> getAllByIDAsync(int ID);
     }
 }

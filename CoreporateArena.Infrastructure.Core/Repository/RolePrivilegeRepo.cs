@@ -17,12 +17,22 @@ namespace CorporateArena.Infrastructure
 
         }
 
-        public Task<int> deleteAsync(RolePrivilege data)
+        public Task deleteAllByIDAsync(int ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task deleteAsync(int ID)
         {
             throw new NotImplementedException();
         }
 
         public Task<List<RolePrivilege>> getAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<RolePrivilege>> getAllByIDAsync(int ID)
         {
             throw new NotImplementedException();
         }
@@ -52,7 +62,7 @@ namespace CorporateArena.Infrastructure
             }
         }
 
-        public Task<int> updateAsync(RolePrivilege data)
+        public Task updateAsync(RolePrivilege data)
         {
             throw new NotImplementedException();
         }

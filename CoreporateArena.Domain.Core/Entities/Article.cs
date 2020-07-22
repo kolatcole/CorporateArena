@@ -20,8 +20,21 @@ namespace CorporateArena.Domain
         public string ImageUrl { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
+        public List<ArticleComment> Comments { get; set; }
+        public int ArticleLikesCount { get; set; }
 
+        // to monitor users that already liked the comment
         
+        public List<ArticleLike> ArticleLikes { get; set; }
+
+
+    }
+
+    public class ArticleLike
+    {
+        public int ID { get; set; }
+        public int UserCreated { get; set; }
+        public int ArticleID { get; set; }
     }
 
     public class ArticleComment
@@ -35,12 +48,16 @@ namespace CorporateArena.Domain
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
         public int UserCreated { get; set; }
-        public int CommentLikes { get; set; }
+        public int CommentLikesCount { get; set; }
 
-        [NotMapped]
-        public List<int> UsersLiked { get; set; }
+        // to monitor users that already liked the comment
+        public List<CommentLike> CommentLikes { get; set; }
 
-
-
+    }
+    public class CommentLike
+    {
+        public int ID { get; set; }
+        public int UserCreated { get; set; }
+        public int CommentID { get; set; }
     }
 }

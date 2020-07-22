@@ -26,6 +26,9 @@ namespace CorporateArena.Presentation.Core.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("ArticleLikesCount")
+                        .HasColumnType("int");
+
                     b.Property<int>("AuthorID")
                         .HasColumnType("int");
 
@@ -63,7 +66,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                     b.Property<int>("ArticleID")
                         .HasColumnType("int");
 
-                    b.Property<int>("CommentLikes")
+                    b.Property<int>("CommentLikesCount")
                         .HasColumnType("int");
 
                     b.Property<string>("Content")
@@ -85,6 +88,26 @@ namespace CorporateArena.Presentation.Core.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("ArticleComments");
+                });
+
+            modelBuilder.Entity("CorporateArena.Domain.ArticleLike", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ArticleID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserCreated")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ArticleID");
+
+                    b.ToTable("ArticleLikes");
                 });
 
             modelBuilder.Entity("CorporateArena.Domain.BrainTeaser", b =>
@@ -135,6 +158,26 @@ namespace CorporateArena.Presentation.Core.Migrations
                     b.HasIndex("BrainTeaserID");
 
                     b.ToTable("BrainTeaserAnswers");
+                });
+
+            modelBuilder.Entity("CorporateArena.Domain.CommentLike", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("ArticleCommentID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserCreated")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ArticleCommentID");
+
+                    b.ToTable("CommentLikes");
                 });
 
             modelBuilder.Entity("CorporateArena.Domain.Contact", b =>
@@ -428,6 +471,13 @@ namespace CorporateArena.Presentation.Core.Migrations
                     b.ToTable("Vacancies");
                 });
 
+            modelBuilder.Entity("CorporateArena.Domain.ArticleLike", b =>
+                {
+                    b.HasOne("CorporateArena.Domain.Article", null)
+                        .WithMany("ArticleLikes")
+                        .HasForeignKey("ArticleID");
+                });
+
             modelBuilder.Entity("CorporateArena.Domain.BrainTeaserAnswer", b =>
                 {
                     b.HasOne("CorporateArena.Domain.BrainTeaser", null)
@@ -435,6 +485,13 @@ namespace CorporateArena.Presentation.Core.Migrations
                         .HasForeignKey("BrainTeaserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CorporateArena.Domain.CommentLike", b =>
+                {
+                    b.HasOne("CorporateArena.Domain.ArticleComment", null)
+                        .WithMany("CommentLikes")
+                        .HasForeignKey("ArticleCommentID");
                 });
 
             modelBuilder.Entity("CorporateArena.Domain.Privilege", b =>

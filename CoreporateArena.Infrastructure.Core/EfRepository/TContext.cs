@@ -25,6 +25,9 @@ namespace CorporateArena.Infrastructure
         public DbSet<TrafficUpdate> TrafficUpdates { get; set; }
         public DbSet<TrafficComment> TrafficComments { get; set; }
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<ArticleLike> ArticleLikes { get; set; }
+        public DbSet<CommentLike> CommentLikes { get; set; }
+
 
     }
 }

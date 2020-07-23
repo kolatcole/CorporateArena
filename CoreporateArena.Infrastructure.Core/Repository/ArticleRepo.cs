@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CorporateArena.Infrastructure
 {
-    public class ArticleRepo : IRepo<Article>
+    public class ArticleRepo : IArticleRepo
     {
         private readonly TContext _context;
         public ArticleRepo(TContext context)
@@ -52,6 +52,24 @@ namespace CorporateArena.Infrastructure
         public Task<List<Article>> getAllByIDAsync(int ID)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<ArticleComment> getSingleCommentAsync(int userID,int articleID, int commentID)
+        {
+            
+            try
+            {
+                var comment = await _context.ArticleComments.Where(x => x.ID == commentID && x.ArticleID == articleID
+                && x.UserCreated==userID).SingleAsync();
+
+                
+
+                return comment;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<Article> getAsync(int ID)
@@ -110,7 +128,7 @@ namespace CorporateArena.Infrastructure
                     article.isApproved = data.isApproved;
                     if (data.ArticleLikesCount != 0) article.ArticleLikesCount = data.ArticleLikesCount;
 
-                _context.Update(article);
+                _context.Articles.Update(article);
                 await _context.SaveChangesAsync();
             }
             catch(Exception ex)

@@ -13,5 +13,6 @@ namespace CorporateArena.Domain
         Task<SaveResponse> UpdateArticleAsync(Article data);
         Task<SaveResponse> DeleteArticleAsync(int ID, int userID);
         Task<SaveResponse> LikeArticleAsync(int userID, int articleID);
+        Task<SaveResponse> LikeCommentAsync(int userID, int articleID, int commentID);
     }
 }

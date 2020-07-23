@@ -9,18 +9,18 @@ namespace CorporateArena.Domain
     {
 
         private readonly IUserService _uService;
-        private readonly IRepo<Article> _repo;
+        private readonly IArticleRepo _repo;
         private readonly IRepo<ArticleComment> _cRepo;
         private readonly IArticleLikeRepo _alRepo;
-       // private readonly ICommentLikeRepo _clRepo;
+        private readonly ICommentLikeRepo _clRepo;
 
-        public ArticleService(IUserService uService, IRepo<Article> repo, IRepo<ArticleComment> cRepo, IArticleLikeRepo alRepo/*IRepo<CommentLike> clRepo*/)
+        public ArticleService(IUserService uService, IArticleRepo repo, IRepo<ArticleComment> cRepo, IArticleLikeRepo alRepo,ICommentLikeRepo clRepo)
         {
             _uService = uService;
             _repo = repo;
             _cRepo = cRepo;
             _alRepo = alRepo;
-       //     _clRepo = clRepo;
+            _clRepo = clRepo;
         }
 
 
@@ -137,6 +137,46 @@ namespace CorporateArena.Domain
                 article.ArticleLikesCount -= 1;
                 await _repo.updateAsync(article);
                 return new SaveResponse { status = true, Result = "Article was unliked" };
+            }
+
+
+        }
+
+        public async Task<SaveResponse> LikeCommentAsync(int userID,int articleID, int commentID)
+        {
+            var userExist = await _uService.CheckIfUserExist(userID);
+            if (!userExist)
+                return new SaveResponse { status = false, Result = "User Not Found" };
+
+            var articleComment = await _repo.getSingleCommentAsync(userID, articleID, commentID);
+
+            // check if the userid and articleid,commentid exist in commentLike
+
+            var like = await _clRepo.getAsync(userID, articleID, commentID); 
+
+            // Increase commentlikeCount and save commentLike, if it hasn't been liked before
+            if (like == null)
+            {
+
+
+                var newLike = new CommentLike
+                {
+                    CommentID = commentID,
+                    UserCreated = userID,
+                    ArticleID=articleID
+                };
+                await _clRepo.insertAsync(newLike);
+                articleComment.CommentLikesCount += 1;
+                await _cRepo.updateAsync(articleComment);
+                return new SaveResponse { status = true, Result = "Comment was liked" };
+            }
+
+            else
+            {
+                await _clRepo.deleteAsync(userID,articleID, commentID);
+                articleComment.CommentLikesCount -= 1;
+                await _cRepo.updateAsync(articleComment);
+                return new SaveResponse { status = true, Result = "Comment was unliked" };
             }
 
 

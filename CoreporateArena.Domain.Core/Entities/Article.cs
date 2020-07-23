@@ -58,6 +58,7 @@ namespace CorporateArena.Domain
     {
         public int ID { get; set; }
         public int UserCreated { get; set; }
+        public int ArticleID { get; set; }
         public int CommentID { get; set; }
     }
 }

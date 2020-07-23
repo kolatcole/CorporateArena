@@ -54,5 +54,41 @@ namespace CorporateArena.Presentation
             var result = await _service.LikeArticleAsync(data.UserID, data.ArticleID);
             return Ok(result);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost("CommentOnArticle")]
+        public async Task<IActionResult> CommentOnArticle(ArticleComment data)
+        {
+            var result = await _service.SubmitCommentAsync(data);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost("LikeComment")]
+        public async Task<IActionResult> LikeComment(CommentLikeViewModel data)
+        {
+            var result = await _service.LikeCommentAsync(data.UserID, data.ArticleID, data.CommentID);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        [HttpDelete("DeleteArticle/{UserID}/{ArticleID}")]
+        public async Task<IActionResult> DeleteArticle(int UserID,int ArticleID)
+        {
+            var result = await _service.DeleteArticleAsync(ArticleID,UserID);
+            return Ok(result);
+        }
     }
 }

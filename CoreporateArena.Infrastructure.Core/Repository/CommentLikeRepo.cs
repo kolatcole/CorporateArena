@@ -2,12 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CorporateArena.Infrastructure
 {
-    public class CommentLikeRepo : IRepo<CommentLike>
+    public class CommentLikeRepo : ICommentLikeRepo
     {
 
         private readonly TContext _context;
@@ -32,24 +33,36 @@ namespace CorporateArena.Infrastructure
             }
         }
 
-        public Task deleteAsync(int ID)
+        public async Task deleteAsync(int userID,int articleID, int CommentID)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var like = await _context.CommentLikes.Where(x => x.CommentID == CommentID && x.ArticleID==articleID
+                && x.UserCreated == userID).SingleOrDefaultAsync();
+                _context.CommentLikes.Remove(like);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public Task<List<CommentLike>> getAllAsync()
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task<List<CommentLike>> getAllByIDAsync(int ID)
-        {
-            throw new NotImplementedException();
-        }
 
-        public Task<CommentLike> getAsync(int ID)
+        public async Task<CommentLike> getAsync(int userID,int articleID, int CommentID)
         {
-            throw new NotImplementedException();
+            CommentLike like;
+            try
+            {
+                like = await _context.CommentLikes.Where(x => x.CommentID == CommentID && x.ArticleID==articleID && x.UserCreated == userID).SingleOrDefaultAsync();
+
+            }
+            catch (Exception ex)
+            {
+                like = null;
+            }
+            return like;
         }
 
         public async Task<int> insertAsync(CommentLike data)
@@ -59,7 +72,8 @@ namespace CorporateArena.Infrastructure
                 var like = new CommentLike
                 {
                     CommentID = data.CommentID,
-                    UserCreated = data.UserCreated
+                    UserCreated = data.UserCreated,
+                    ArticleID=data.ArticleID
                 };
 
                 await _context.CommentLikes.AddAsync(like);
@@ -71,16 +85,7 @@ namespace CorporateArena.Infrastructure
                 throw ex;
             }
 
-        }
 
-        public Task<bool> insertListAsync(List<CommentLike> data)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task updateAsync(CommentLike data)
-        {
-            throw new NotImplementedException();
         }
     }
 }

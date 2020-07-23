@@ -121,9 +121,25 @@ namespace CorporateArena.Infrastructure
             throw new NotImplementedException();
         }
 
-        public Task updateAsync(ArticleComment data)
+        public async Task updateAsync(ArticleComment data)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var comment = await _context.ArticleComments.Where(x => x.ID == data.ID && x.ArticleID == data.ArticleID
+                && x.UserCreated==data.UserCreated).SingleOrDefaultAsync();
+
+                comment.DateModified = DateTime.Now;
+                if (data.Content != null) comment.Content = data.Content;
+                if (data.Title != null) comment.Title = data.Title;
+                if (data.CommentLikesCount != 0) comment.CommentLikesCount = data.CommentLikesCount;
+                
+                _context.ArticleComments.Update(comment);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

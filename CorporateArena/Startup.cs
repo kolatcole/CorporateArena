@@ -75,6 +75,8 @@ namespace CorporateArena
             services.AddScoped<IRepo<ArticleComment>, ArticleCommentRepo>();
             services.AddScoped<IArticleLikeRepo, ArticleLikeRepo > ();
             services.AddScoped<ICommentLikeRepo, CommentLikeRepo>();
+            services.AddScoped<IRepo<TrafficUpdate>, TrafficUpdateRepo>();
+            services.AddScoped<IRepo<TrafficComment>, TrafficCommentRepo>();
 
 
             services.AddTransient<IEmailSender, EmailSender>();
@@ -82,6 +84,7 @@ namespace CorporateArena
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IBrainTeaserService, BrainTeaserService>();
             services.AddTransient<IArticleService, ArticleService>();
+            services.AddTransient<ITrafficUpdateService, TrafficUpdateService>();
 
         }
 

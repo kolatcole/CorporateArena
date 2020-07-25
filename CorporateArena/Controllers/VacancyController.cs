@@ -52,7 +52,7 @@ namespace CorporateArena.Presentation.Core.Controllers
         /// <param name="VacancyID"></param>
         /// <returns></returns>
         [HttpDelete("DeleteVacancy/{UserID}/{VacancyID}")]
-        public async Task<IActionResult> DeleteArticle(int UserID, int VacancyID)
+        public async Task<IActionResult> DeleteVacancy(int UserID, int VacancyID)
         {
             var result = await _service.DeleteVacancyAsync(VacancyID, UserID);
             return Ok(result);

@@ -28,10 +28,14 @@ namespace CorporateArena
         }
 
         public IConfiguration Configuration { get; }
+       // public const string SendGridKey = "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";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            string SendgridKey = Configuration.GetSection("Sendgrid")["ApiKey"];
+
             services.AddControllers();
 
             var JwtOptSection = Configuration.GetSection(nameof(JwtOpt));
@@ -77,14 +81,17 @@ namespace CorporateArena
             services.AddScoped<ICommentLikeRepo, CommentLikeRepo>();
             services.AddScoped<IRepo<TrafficUpdate>, TrafficUpdateRepo>();
             services.AddScoped<IRepo<TrafficComment>, TrafficCommentRepo>();
+            services.AddScoped<IRepo<Vacancy>, VacancyRepo>();
+            services.AddScoped<IRepo<Contact>, ContactRepo>();
 
 
-            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IEmailSender>(a => new EmailSender(SendgridKey));
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IBrainTeaserService, BrainTeaserService>();
             services.AddTransient<IArticleService, ArticleService>();
             services.AddTransient<ITrafficUpdateService, TrafficUpdateService>();
+            services.AddTransient<IVacancyService, VacancyService>();
 
         }
 

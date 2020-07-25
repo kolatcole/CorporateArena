@@ -102,7 +102,7 @@ namespace CorporateArena.Infrastructure
         {
             try
             {
-                var bt = new BrainTeaser();
+                var bt = await _context.BrainTeasers.FindAsync(data.ID);
                 if (data.Riddle != null) bt.Riddle = data.Riddle;
                 bt.DateModified = data.DateModified;
 

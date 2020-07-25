@@ -57,20 +57,96 @@ namespace CorporateArena.Infrastructure
             }
         }
 
-        public string HashPassword(string password)
+        //private const int SaltByteSize = 24;
+        //private const int HashByteSize = 24;
+        //private const int HasingIterationsCount = 10101;
+
+        //internal static byte[] GenerateSalt(int saltByteSize = SaltByteSize)
+        //{
+        //    using (RNGCryptoServiceProvider saltGenerator = new RNGCryptoServiceProvider())
+        //    {
+        //        byte[] salt = new byte[saltByteSize];
+        //        saltGenerator.GetBytes(salt);
+        //        return salt;
+        //    }
+        //}
+
+        //internal static byte[] ComputeHash(string password, byte[] salt, int iterations = HasingIterationsCount, int hashByteSize = HashByteSize)
+        //{
+        //    using (Rfc2898DeriveBytes hashGenerator = new Rfc2898DeriveBytes(password, salt))
+        //    {
+        //        hashGenerator.IterationCount = iterations;
+        //        return hashGenerator.GetBytes(hashByteSize);
+        //    }
+        //}
+
+        //public string HashPassword(string password)
+        //{
+
+
+
+
+        //    password.PasswordSalt = Convert.ToBase64String(passwordSaltKey);
+
+        //    //To bytes from base64 string
+        //    byte[] passwordSalt = Convert.FromBase64String(passwordSaltKey);
+        //    //byte[] salt = new byte[128 / 8];
+        //    //string hash;
+
+
+        //    //var rng = new RNGCryptoServiceProvider();
+
+
+        //    //    rng.GetBytes(salt);
+        //    //hash = Convert.ToBase64String(salt);
+        //    //var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 100000);
+
+        //    return hash;
+        //}
+
+
+        private const int SALT_SIZE = 8;
+        private const int NUM_ITERATIONS = 1000;
+
+        private static readonly RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+
+        /// <summary>
+        /// Creates a signature for a password.
+        /// </summary>
+        /// <param name="password">The password to hash.</param>
+        /// <returns>the "salt:hash" for the password.</returns>
+        public static string CreatePasswordSalt(string password)
         {
-            byte[] salt = new byte[128 / 8];
-          //  string hash;
-            PasswordHasher v = new PasswordHasher();
-            var hash=v.HashPassword(password);
-           
-           //var rng=RandomNumberGenerator.Create()
-            
-           //     rng.GetBytes(salt);
-           //     hash = Convert.ToBase64String(salt);
-            
-           return hash;
+            byte[] buf = new byte[SALT_SIZE];
+            rng.GetBytes(buf);
+            string salt = Convert.ToBase64String(buf);
+
+            Rfc2898DeriveBytes deriver2898 = new Rfc2898DeriveBytes(password.Trim(), buf, NUM_ITERATIONS);
+            string hash = Convert.ToBase64String(deriver2898.GetBytes(16));
+            return salt + ':' + hash;
         }
+
+        /// <summary>
+        /// Validate if a password will generate the passed in salt:hash.
+        /// </summary>
+        /// <param name="password">The password to validate.</param>
+        /// <param name="saltHash">The "salt:hash" this password should generate.</param>
+        /// <returns>true if we have a match.</returns>
+        public static bool IsPasswordValid(string password, string saltHash)
+        {
+            string[] parts = saltHash.Split(new[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+
+            if (parts.Length != 2)
+
+                return false;
+            byte[] buf = Convert.FromBase64String(parts[0]);
+            Rfc2898DeriveBytes deriver2898 = new Rfc2898DeriveBytes(password.Trim(), buf, NUM_ITERATIONS);
+            string computedHash = Convert.ToBase64String(deriver2898.GetBytes(16));
+            return parts[1].Equals(computedHash);
+        }
+
+
+
         public bool UptoEight(string password)
         {
             if (password.Length > 7) return true;
@@ -93,22 +169,25 @@ namespace CorporateArena.Infrastructure
 
         public async Task<SaveResponse> RegisterUser(User data)
         {
-
+            // check if it works in userservice
 
 
             // check if password is strong 
-            bool isLood = data.Password.Any(p => !char.IsLetterOrDigit(p));
-            bool isNum = data.Password.Any(p => char.IsNumber(p));
-            bool isUpper = data.Password.Any(p => char.IsUpper(p));
-            bool isLower = data.Password.Any(p => char.IsLower(p));
-            bool isUptoEight = UptoEight(data.Password);
+            //bool isLood = data.Password.Any(p => !char.IsLetterOrDigit(p));
+            //bool isNum = data.Password.Any(p => char.IsNumber(p));
+            //bool isUpper = data.Password.Any(p => char.IsUpper(p));
+            //bool isLower = data.Password.Any(p => char.IsLower(p));
+            //bool isUptoEight = UptoEight(data.Password);
 
-            if(!isLood || !isNum || !isUpper || !isLower || !isUptoEight)
-                return new SaveResponse { Result = "Invalid Password", status = false};
+            //if(!isLood || !isNum || !isUpper || !isLower || !isUptoEight)
+            //    return new SaveResponse { Result = "Invalid Password", status = false};
 
-            // check if email address is valid
-            if(!ValidateAddress(data.Email))
-                return new SaveResponse { Result = "Email Address is Invalid", status = false };
+            //// check if email address is valid
+            //if(!ValidateAddress(data.Email))
+            //    return new SaveResponse { Result = "Email Address is Invalid", status = false };
+
+
+            // check if it works in userservice
 
             User user;
             try
@@ -118,7 +197,7 @@ namespace CorporateArena.Infrastructure
                 if (data.RoleID == 0) data.RoleID = 1;
 
                 // hash password
-                var password = HashPassword(data.Password);
+                var password = CreatePasswordSalt(data.Password);
 
                 user = new User
                 {
@@ -176,11 +255,11 @@ namespace CorporateArena.Infrastructure
             {
                 
                 
-                user = await _context.AppUsers.Where(x => x.UserName == username && x.Password == password).FirstOrDefaultAsync();
-                
-                 if (user == null) return new Response {status=false,Result="Login Failed" };
+                user = await _context.AppUsers.Where(x => x.UserName == username ).FirstOrDefaultAsync();
+                bool isValid = IsPasswordValid(password, user.Password);
+                 if (isValid == false) return new Response {status=false,Result="Username and/or password invalid" };
 
-                 // create token
+                // create token
                 user.Token = CreateToken(user);
                 _context.AppUsers.Update(user);
                 await _context.SaveChangesAsync();
@@ -212,26 +291,63 @@ namespace CorporateArena.Infrastructure
 
         public async Task<Response> AssignRoletoUser(int roleID, int userID)
         {
-            var userRole = await _context.UserRoles.Where(x => x.RoleID == roleID && x.UserID == userID).FirstOrDefaultAsync();
-            if (userRole != null)
-                return new Response { status = false, Result = "Role has already been assigned to this user" };
+            
 
             try
             {
-                UserRole data = new UserRole
-                {
-                    RoleID = roleID,
-                    UserID = userID
-                };
 
-                await _context.UserRoles.AddAsync(data);
-                await _context.SaveChangesAsync();
-                return new Response { status = true, Result = "Successful" };
+                var userRole = await _context.UserRoles.Where(x => x.UserID == userID).FirstOrDefaultAsync();
+                if (userRole != null)
+                {
+                    var user = await _context.AppUsers.FindAsync(userID);
+                    user.RoleID = roleID;
+
+                    userRole.RoleID = roleID;
+                    _context.AppUsers.Update(user);
+                    _context.UserRoles.Update(userRole);
+                    await _context.SaveChangesAsync();
+                    return new Response { status = true, Result = "User updated with new role" };
+                }
+
+
+                else
+                {
+                    UserRole data = new UserRole
+                    {
+                        RoleID = roleID,
+                        UserID = userID
+                    };
+
+                    await _context.UserRoles.AddAsync(data);
+                    await _context.SaveChangesAsync();
+                    return new Response { status = true, Result = "Successful" };
+                }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+
+
+            //    var userRole = await _context.UserRoles.Where(x => x.RoleID == roleID && x.UserID == userID).FirstOrDefaultAsync();
+            //    if (userRole != null)
+            //        return new Response { status = false, Result = "Role has already been assigned to this user" };
+
+
+            //    UserRole data = new UserRole
+            //    {
+            //        RoleID = roleID,
+            //        UserID = userID
+            //    };
+
+            //    await _context.UserRoles.AddAsync(data);
+            //    await _context.SaveChangesAsync();
+            //    return new Response { status = true, Result = "Successful" };
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
         }
 
         public async Task<User> GetUserWithRole(int ID)
@@ -239,11 +355,34 @@ namespace CorporateArena.Infrastructure
             try
             {
                 var user = await _context.AppUsers.FindAsync(ID);
+                //var userRole = await _context.UserRoles.Where(x => x.UserID == ID).SingleOrDefaultAsync();
+
+                //if (userRole != null) user.Role = await _context.Roles.Where(x => x.ID == userRole.RoleID).SingleAsync();
+
+
+                //return user;
+
+                user = await _context.AppUsers.FindAsync(ID);
                 var userRole = await _context.UserRoles.Where(x => x.UserID == ID).SingleOrDefaultAsync();
 
-                if (userRole != null) user.Role = await _context.Roles.Where(x => x.ID == userRole.RoleID).SingleAsync();
+                // this needs to be optimized
+                if (userRole != null)
+                {
+                    user.Role = await _context.Roles.Where(x => x.ID == userRole.RoleID).SingleAsync();
+                    var rolePrivileges = await _context.RolePrivileges.Where(x => x.RoleID ==/*roleId must be updated in user*/ user.RoleID).ToListAsync();
+                    if (rolePrivileges != null)
+                    {
+                        var privs = new List<Privilege>();
+                        foreach(var rp in rolePrivileges)
+                        {
+                            var priv = await _context.Privileges.Where(x => x.ID == rp.PrivilegeID).SingleAsync();
 
-
+                            privs.Add(priv);
+                        }
+                        user.Role.Privileges = privs;
+                        //user.Role.Privileges = await _context.Privileges.Where(x => x.ID == user.RoleID).ToListAsync();
+                    }
+                }// this needs to be optimized
                 return user;
 
             }
@@ -251,6 +390,60 @@ namespace CorporateArena.Infrastructure
             {
                 throw ex;
             }
+
+
+            //user = await _context.AppUsers.FindAsync(ID);
+            //var userRole = await _context.UserRoles.Where(x => x.UserID == ID).SingleOrDefaultAsync();
+
+            //if (userRole != null)
+            //{
+            //    user.Role = await _context.Roles.Where(x => x.ID == userRole.RoleID).SingleAsync();
+            //    if (user.Role.Privileges != null)
+            //    {
+            //        user.Role.Privileges = await _context.Privileges.Where(x => x.ID == user.RoleID).ToListAsync();
+            //    }
+            //}
+
+
+
+
+            //return user;
+        }
+
+        public async Task<bool> GetUserByEmail(string email)
+        {
+            var status = false;
+            try
+            {
+               var user = await _context.AppUsers.Where(x => x.Email == email).SingleOrDefaultAsync();
+                if (user != null)
+                    return status=true;
+
+            }
+            catch
+            {
+                return status;
+            }
+            return status;
+        }
+
+        // return true if username is already used, false if otherwise
+        public async Task<bool> GetUserByUsername(string username)
+        {
+            var status = false;
+            
+            try
+            {
+                var user = await _context.AppUsers.Where(x => x.UserName == username).SingleOrDefaultAsync();
+                if (user != null)
+                    return status=true;
+
+            }
+            catch
+            {
+                return status;
+            }
+            return status;
         }
     }
 }

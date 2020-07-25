@@ -67,7 +67,7 @@ namespace CorporateArena.Presentation
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        [HttpPost("Activate/{ID}")]
+        [HttpGet("Activate/{ID}")]
         public async Task<IActionResult> Activate(int ID)
         {
             var result = await _service.ApproveUserAsync(ID);

@@ -8,8 +8,6 @@ namespace CorporateArena.Domain
 {
     public interface IPrivilegeRepo
     {
-        Task<List<string>> GetActionsAsync();
-        Task<List<KeyValuePair<string, string>>> GetModelsAsync();
         Task<Response> insertAsync(Privilege data);
         Task<bool> insertListAsync(List<Privilege> data);
         Task<int> deleteAsync(Privilege data);

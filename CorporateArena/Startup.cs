@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 namespace CorporateArena
 {
@@ -37,6 +38,28 @@ namespace CorporateArena
             string SendgridKey = Configuration.GetSection("Sendgrid")["ApiKey"];
 
             services.AddControllers();
+
+
+
+
+            //   services.Add
+            services.AddSwaggerGen(opt =>
+            {
+                opt.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Corporate Arena API"
+                });
+            });
+
+
+
+
+
+
+
+
+
 
             var JwtOptSection = Configuration.GetSection(nameof(JwtOpt));
             services.Configure<JwtOpt>(JwtOptSection);
@@ -81,7 +104,7 @@ namespace CorporateArena
             services.AddScoped<ICommentLikeRepo, CommentLikeRepo>();
             services.AddScoped<IRepo<TrafficUpdate>, TrafficUpdateRepo>();
             services.AddScoped<IRepo<TrafficComment>, TrafficCommentRepo>();
-            services.AddScoped<IRepo<Vacancy>, VacancyRepo>();
+            services.AddScoped<IVacancyRepo, VacancyRepo>();
             services.AddScoped<IRepo<Contact>, ContactRepo>();
 
 
@@ -92,6 +115,7 @@ namespace CorporateArena
             services.AddTransient<IArticleService, ArticleService>();
             services.AddTransient<ITrafficUpdateService, TrafficUpdateService>();
             services.AddTransient<IVacancyService, VacancyService>();
+            services.AddTransient<IPrivilegeService, PrivilegeService>();
 
         }
 
@@ -103,7 +127,7 @@ namespace CorporateArena
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            
 
             app.UseRouting();
 
@@ -115,6 +139,17 @@ namespace CorporateArena
             {
                 endpoints.MapControllers();
             });
+
+            var swaggerOpt = new SwaggerOpt();
+            Configuration.GetSection(nameof(SwaggerOpt)).Bind(swaggerOpt);
+            app.UseSwagger(opt => {
+                opt.RouteTemplate = swaggerOpt.JsonRoute;
+            });
+            app.UseSwaggerUI(opt => {
+                opt.SwaggerEndpoint(swaggerOpt.UIEndPoint, swaggerOpt.Description);
+            });
+
+            app.UseHttpsRedirection();
         }
     }
 }

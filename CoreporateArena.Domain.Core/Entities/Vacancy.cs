@@ -16,5 +16,8 @@ namespace CorporateArena.Domain
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
         public int UserCreated { get; set; }
+        public string Mode { get; set; }
+        public string Industry { get; set; }
+
     }
 }

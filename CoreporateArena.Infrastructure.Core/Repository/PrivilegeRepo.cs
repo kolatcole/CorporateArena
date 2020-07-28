@@ -24,7 +24,7 @@ namespace CorporateArena.Infrastructure
             throw new NotImplementedException();
         }
 
-        public async Task<List<string>> GetActionsAsync()
+        public List<string> GetActionsAsync()
         {
 
             var acts = new List<string>(Enum.GetNames(typeof(MyEnum)));
@@ -50,11 +50,11 @@ namespace CorporateArena.Infrastructure
             throw new NotImplementedException();
         }
 
-        public async Task<List<KeyValuePair<string, string>>> GetModelsAsync()
+        public List<KeyValuePair<string, string>> GetModelsAsync()
         {
             
             
-            return Mod;
+            return Mods;
         }
 
         public async Task<Response> insertAsync(Privilege data)
@@ -89,9 +89,20 @@ namespace CorporateArena.Infrastructure
             return new Response { status = true, Result = "Permission was created successfully" };
         }
 
-        public Task<bool> insertListAsync(List<Privilege> data)
+        public async Task<bool> insertListAsync(List<Privilege> data)
         {
-            throw new NotImplementedException();
+           try
+            {
+                 _context.Privileges.AddRange(data);
+                await _context.SaveChangesAsync();
+
+
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            return true;
         }
 
         public Task<int> updateAsync(Privilege data)

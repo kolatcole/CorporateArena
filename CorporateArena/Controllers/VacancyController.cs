@@ -44,7 +44,56 @@ namespace CorporateArena.Presentation.Core.Controllers
             return Ok(result);
         }
 
-       
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mode"></param>
+        /// <returns></returns>
+        [HttpGet("GetVacancyByMode/{mode}")]
+        public async Task<IActionResult> GetVacancyByMode(string mode)
+        {
+            var result = await _service.GetVacancyByModeAsync(mode);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="title"></param>
+        /// <returns></returns>
+        [HttpGet("GetVacancyByTitle/{title}")]
+        public async Task<IActionResult> GetVacancyByTitle(string title)
+        {
+            var result = await _service.GetVacancyByTitleAsync(title);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        [HttpGet("GetVacancyByLocation/{location}")]
+        public async Task<IActionResult> GetVacancyByLocation(string location)
+        {
+            var result = await _service.GetVacancyByLocationAsync(location);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="industry"></param>
+        /// <returns></returns>
+        [HttpGet("GetVacancyByIndustry/{industry}")]
+        public async Task<IActionResult> GetVacancyByIndustry(string industry)
+        {
+            var result = await _service.GetVacancyByIndustryAsync(industry);
+            return Ok(result);
+        }
+
+
+
         /// <summary>
         /// 
         /// </summary>

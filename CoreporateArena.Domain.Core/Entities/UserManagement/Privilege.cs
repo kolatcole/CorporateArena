@@ -40,12 +40,15 @@ namespace CorporateArena.Domain
         }
 
 
-        public static List<KeyValuePair<string, string>> Mod = new List<KeyValuePair<string, string>>()
+        public static List<KeyValuePair<string, string>> Mods = new List<KeyValuePair<string, string>>()
         {
-            new KeyValuePair<string, string>("Traffic Updates","TrafficUpdates"),
-            new KeyValuePair<string, string>("User","User"),
-            new KeyValuePair<string, string>("Brain Teaser","BrainTeaser")
 
+            new KeyValuePair<string, string>("User","User"),
+            new KeyValuePair<string, string>("Role","Role"),
+            new KeyValuePair<string, string>("Brain Teaser","BrainTeaser"),
+            new KeyValuePair<string, string>("Vacancy","Vacancy"),
+            new KeyValuePair<string, string>("Article","Article"),
+            new KeyValuePair<string, string>("Traffic Updates","TrafficUpdates")
 
         };
         public enum MyEnum

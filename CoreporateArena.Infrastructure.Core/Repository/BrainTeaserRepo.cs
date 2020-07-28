@@ -79,7 +79,8 @@ namespace CorporateArena.Infrastructure
                 {
                     DateCreated=DateTime.Now,
                     Riddle=data.Riddle,
-                    UserCreated=data.UserCreated
+                    UserCreated=data.UserCreated,
+                    CorrectAnswer=data.CorrectAnswer
                 };
 
                 await _context.BrainTeasers.AddAsync(bt);

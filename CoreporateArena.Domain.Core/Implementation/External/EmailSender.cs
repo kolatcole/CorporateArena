@@ -18,10 +18,6 @@ namespace CorporateArena.Presentation
         }
 
 
-        public async Task SendEmailAsync()//List<string> emails, string subject, string message)
-        {
-           await Execute();
-        }
 
         //public Task Execute(string apiKey, string subject, string message, List<string> emails)
         //{
@@ -44,15 +40,14 @@ namespace CorporateArena.Presentation
         //}
 
 
-        public async Task Execute()
+        public async Task ActivateAccountAsync(string username,string email,int id)
         {
-            var apiKey = "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"; //Environment.GetEnvironmentVariable("NAME_OF_THE_ENVIRONMENT_VARIABLE_FOR_YOUR_SENDGRID_KEY");
-            var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("tkolawole@inspirecoders.com", "Example User");
-            var subject = "Sending with SendGrid is Fun";
-            var to = new EmailAddress("tkolawole@inspirecoders.com", "Example User");
-            var plainTextContent = "and easy to do anywhere, even with C#";
-            var htmlContent = "<a href='https://localhost:44369/api/user/Activate/1'>Activate Account</a>"; //"<a href='https://localhost:44369/api/user/Activate/2'>Activate Account</a>";
+            var client = new SendGridClient(_SendgridKey);
+            var from = new EmailAddress("tkolawole@inspirecoders.com");
+            var subject = "New Account Activation";
+            var to = new EmailAddress(email, username);
+            var plainTextContent = "<a href='https://localhost:44369/api/user/Activate/" + id + "'>Activate Account</a>";
+            var htmlContent = "<a href='https://localhost:44369/api/user/Activate/"+id+"'>Activate Account</a>";
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync(msg);
         }

@@ -25,5 +25,7 @@ namespace CorporateArena.Domain
 
         Task<bool> GetUserByUsername(string username);
 
+        Task<List<UserRole>> GetUserRoles();
+
     }
 }

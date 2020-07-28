@@ -12,21 +12,25 @@ namespace CorporateArena.Presentation
     [ApiController]
     public class PrivilegeController : ControllerBase
     {
-        // for test
-
-        private readonly IEmailSender _service;
-
-
-        // for email test
+        
 
 
 
-        private readonly IPrivilegeRepo _repo;
-        public PrivilegeController(IPrivilegeRepo repo, IEmailSender service)
+        private readonly IPrivilegeService _pService;
+        public PrivilegeController(IPrivilegeService pService)
         {
-            _service = service;
-            _repo = repo;
+            _pService = pService;
         }
+
+
+        [HttpPost("CreateAllPrivileges")]
+        public async Task<IActionResult> CreateAllPrivileges()
+        {
+
+            var result = await _pService.insertListAsync();
+            return Ok(result);
+        }
+
 
         /// <summary>
         /// 
@@ -36,7 +40,7 @@ namespace CorporateArena.Presentation
         [HttpPost("SavePrivilege")]
         public async Task<IActionResult> SavePrivilege(Privilege data)
         {
-            var result = await _repo.insertAsync(data);
+            var result = await _pService.insertAsync(data);
             return Ok(new { message = "Successful", status = result });
         }
 
@@ -47,19 +51,23 @@ namespace CorporateArena.Presentation
         [HttpGet("GetAllPrivileges")]
         public async Task<IActionResult> GetAllPrivileges()
         {
-            var result = await _repo.getAllAsync();
+            var result = await _pService.getAllAsync();
             return Ok(result);
 
         }
 
         [HttpGet("GetModels")]
-        public async Task<IActionResult> GetModels()
+        public IActionResult GetModels()
         {
-            var result = await _repo.GetModelsAsync();
+
+            
+            var result = _pService.GetModelsAsync();
             return Ok(result);
+
+
         }
         [HttpGet("GetActions")]
-        public async Task<IActionResult> GetActions()
+        public IActionResult GetActions()
         {
             // var result = await _repo.GetActionsAsync();
             Models mod = new Models();
@@ -68,15 +76,6 @@ namespace CorporateArena.Presentation
         }
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost("SendMail")]
-        public async Task<IActionResult> SendMail()
-        {
-           await _service.SendEmailAsync();
-            return Ok();
-        }
+        
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CorporateArena.Presentation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -13,13 +14,14 @@ namespace CorporateArena.Domain
 
         private readonly IUserRepo _uRepo;
         private readonly IPrivilegeRepo _pRepo;
+        
+        private readonly IEmailSender _eService;
 
-
-
-        public UserService(IUserRepo uRepo, IPrivilegeRepo pRepo)
+        public UserService(IUserRepo uRepo, IPrivilegeRepo pRepo, IEmailSender eService)
         {
             _uRepo = uRepo;
             _pRepo = pRepo;
+            _eService = eService;
 
 
         }
@@ -98,7 +100,13 @@ namespace CorporateArena.Domain
 
 
             var response = await _uRepo.RegisterUser(data);
+
+            // assign default role to user
+
             await AssignRoletoUserAsync(data.RoleID, data.ID);
+
+            // send account activation mail to users
+             await _eService.ActivateAccountAsync(data.UserName, data.Email,response.ID);
 
             return response;
         }
@@ -241,5 +249,10 @@ namespace CorporateArena.Domain
 
         }
 
+        public async Task<List<UserRole>> GetUserRoles()
+        {
+            var result =await _uRepo.GetUserRoles();
+            return result;
+        }
     }
 }

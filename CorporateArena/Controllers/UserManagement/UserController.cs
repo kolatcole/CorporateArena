@@ -14,10 +14,10 @@ namespace CorporateArena.Presentation
     public class UserController : ControllerBase
     {
         public IUserService _service;
+        
 
         public UserController(IUserService service)
         {
-
             _service = service;
         }
 
@@ -101,6 +101,18 @@ namespace CorporateArena.Presentation
             var result = await _service.GetUserWithRoleAsync(ID);
             return Ok(result);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetAllUserRoles")]
+        public async Task<IActionResult> GetAllUserRoles()
+        {
+            var result = await _service.GetUserRoles();
+            return Ok(result);
+        }
+
 
         /// <summary>
         /// 

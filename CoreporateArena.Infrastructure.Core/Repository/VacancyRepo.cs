@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CorporateArena.Infrastructure
 {
-    public class VacancyRepo : IRepo<Vacancy>
+    public class VacancyRepo : IVacancyRepo
     {
 
         private readonly TContext _context;
@@ -16,10 +16,7 @@ namespace CorporateArena.Infrastructure
         {
             _context = context;
         }
-        public Task deleteAllByIDAsync(int ID)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public async Task deleteAsync(int ID)
         {
@@ -49,10 +46,6 @@ namespace CorporateArena.Infrastructure
             }
         }
 
-        public Task<List<Vacancy>> getAllByIDAsync(int ID)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<Vacancy> getAsync(int ID)
         {
@@ -62,6 +55,71 @@ namespace CorporateArena.Infrastructure
                 return vacancy;
             }
             catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Vacancy>> getByCompanyAsync(string company)
+        {
+            try
+            {
+                var vacancies = await _context.Vacancies.Where(x => x.Company == company).ToListAsync();
+                return vacancies;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Vacancy>> getByIndustryAsync(string industry)
+        {
+            try
+            {
+                var vacancies = await _context.Vacancies.Where(x => x.Industry == industry).ToListAsync();
+                return vacancies;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Vacancy>> getByLocationAsync(string location)
+        {
+            try
+            {
+                var vacancies = await _context.Vacancies.Where(x => x.Location == location).ToListAsync();
+                return vacancies;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Vacancy>> getByModeAsync(string mode)
+        {
+            try
+            {
+                var vacancies = await _context.Vacancies.Where(x => x.Mode == mode).ToListAsync();
+                return vacancies;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<Vacancy>> getByTitleAsync(string title)
+        {
+            try
+            {
+                var vacancies = await _context.Vacancies.Where(x => x.JobTitle == title).ToListAsync();
+                return vacancies;
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -80,7 +138,9 @@ namespace CorporateArena.Infrastructure
                     Email = data.Email,
                     Location = data.Location,
                     Url = data.Url,
-                    UserCreated = data.UserCreated
+                    UserCreated = data.UserCreated,
+                    Industry=data.Industry,
+                    Mode=data.Mode
                 };
                 await _context.Vacancies.AddAsync(vacancy);
                 await _context.SaveChangesAsync();
@@ -90,11 +150,6 @@ namespace CorporateArena.Infrastructure
             {
                 throw ex;
             }
-        }
-
-        public Task<bool> insertListAsync(List<Vacancy> data)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task updateAsync(Vacancy data)

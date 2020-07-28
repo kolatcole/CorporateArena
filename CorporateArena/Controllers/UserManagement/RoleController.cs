@@ -66,5 +66,16 @@ namespace CorporateArena.Presentation
             var result = await _service.AssignPrivilegetoRoleAsync(roleID, privilegeID);
             return Ok(result);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("GetAllRolePrivileges")]
+        public async Task<IActionResult> GetAllRolePrivileges()
+        {
+            var result = await _service.GetAllRolePrivileges();
+            return Ok(result);
+        }
     }
 }

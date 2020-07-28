@@ -27,9 +27,17 @@ namespace CorporateArena.Infrastructure
             throw new NotImplementedException();
         }
 
-        public Task<List<RolePrivilege>> getAllAsync()
+        public async Task<List<RolePrivilege>> getAllAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var rolePrivileges = await _context.RolePrivileges.ToListAsync();
+                return rolePrivileges;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public Task<List<RolePrivilege>> getAllByIDAsync(int ID)

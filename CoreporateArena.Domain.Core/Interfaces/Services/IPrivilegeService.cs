@@ -8,7 +8,13 @@ namespace CorporateArena.Domain
 {
     public interface IPrivilegeService
     {
-        Task<MyEnum> GetActionsAsync();
-        Task<Dictionary<string,string>> GetModelsAsync();
+        List<string> GetActionsAsync();
+        List<KeyValuePair<string, string>> GetModelsAsync();
+        Task<Response> insertAsync(Privilege data);
+        Task<SaveResponse> insertListAsync();
+        Task<int> deleteAsync(Privilege data);
+        Task<int> updateAsync(Privilege data);
+        Task<Privilege> getAsync(int ID);
+        Task<List<Privilege>> getAllAsync();
     }
 }

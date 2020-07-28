@@ -57,6 +57,19 @@ namespace CorporateArena.Infrastructure
             }
         }
 
+        public async Task<List<UserRole>> GetUserRoles()
+        {
+            try
+            {
+                var userroles = await _context.UserRoles.ToListAsync();
+                return userroles;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
         //private const int SaltByteSize = 24;
         //private const int HashByteSize = 24;
         //private const int HasingIterationsCount = 10101;
@@ -194,7 +207,7 @@ namespace CorporateArena.Infrastructure
             {
 
                 // Assign the basic role to user if no role is selected
-                if (data.RoleID == 0) data.RoleID = 1;
+                if (data.RoleID == 0) data.RoleID = 8;
 
                 // hash password
                 var password = CreatePasswordSalt(data.Password);

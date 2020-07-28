@@ -12,6 +12,7 @@ namespace CorporateArena.Domain
         Task<List<Role>> GetAllRolesAsync();
        Task<Role> GetRoleByIDAsync(int ID);
        Task<Response> AssignPrivilegetoRoleAsync(int roleID, int privilegeID);
+        Task<List<RolePrivilege>> GetAllRolePrivileges();
 
     }
 }

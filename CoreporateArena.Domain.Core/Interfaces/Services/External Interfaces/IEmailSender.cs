@@ -8,7 +8,7 @@ namespace CorporateArena.Presentation
 {
     public interface IEmailSender
     {
-        Task SendEmailAsync();//List<string> emails, string subject, string message);
+        Task ActivateAccountAsync(string username, string email,int id);
 
         Task SendUserMessage(ContactEmail email);
     }

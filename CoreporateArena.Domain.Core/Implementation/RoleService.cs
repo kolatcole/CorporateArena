@@ -71,6 +71,11 @@ namespace CorporateArena.Domain
             return status;
         }
 
+        public async Task<List<RolePrivilege>> GetAllRolePrivileges()
+        {
+            var rolePrivileges = await _rpRepo.getAllAsync();
+            return rolePrivileges;
+        }
 
 
     }

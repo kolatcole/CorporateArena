@@ -12,7 +12,15 @@ namespace CorporateArena.Domain
         Task<Vacancy> GetVacancyByIDAsync(int ID);
         
         Task<List<Vacancy>> GetAllVacanciesAsync();
-        
+
+        Task<List<Vacancy>> GetVacancyByModeAsync(string mode);
+
+        Task<List<Vacancy>> GetVacancyByIndustryAsync(string industry);
+
+        Task<List<Vacancy>> GetVacancyByTitleAsync(string title);
+
+        Task<List<Vacancy>> GetVacancyByLocationAsync(string location);
+
         Task<SaveResponse> UpdateVacancyAsync(Vacancy data);
         
         Task<SaveResponse> DeleteVacancyAsync(int ID, int userID);

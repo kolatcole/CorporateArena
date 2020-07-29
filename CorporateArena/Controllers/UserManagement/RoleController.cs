@@ -77,5 +77,27 @@ namespace CorporateArena.Presentation
             var result = await _service.GetAllRolePrivileges();
             return Ok(result);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("CreateSuperUserRole")]
+        public async Task<IActionResult> CreateSuperUserRole()
+        {
+            var result = await _service.SaveSuperUser();
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("CreateBasicRole")]
+        public async Task<IActionResult> CreateBasicRole()
+        {
+            var result = await _service.SaveBasicRole();
+            return Ok(result);
+        }
     }
 }

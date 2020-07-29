@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace CorporateArena.Domain
 {
-    public class Privilege : BaseEntity
+    public class Privilege 
     {
+        public int ID { get; set; }
         public string Name { get; set; }
         public string DisplayName { get; set; }
 

@@ -70,8 +70,7 @@ namespace CorporateArena.Infrastructure
             {
                 privilege = new Privilege
                 {
-                    DateCreated = DateTime.Now,
-                    UserCreated=data.UserCreated,
+                    
                     DisplayName=data.Action+" "+data.Entity,
                     Name= data.Action+data.Entity,
                     Action=data.Action,

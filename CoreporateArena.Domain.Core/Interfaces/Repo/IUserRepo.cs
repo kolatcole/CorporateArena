@@ -27,5 +27,7 @@ namespace CorporateArena.Domain
 
         Task<List<UserRole>> GetUserRoles();
 
+        Task<int> CreateSystemUserAsync(int roleID);
+
     }
 }

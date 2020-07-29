@@ -182,37 +182,19 @@ namespace CorporateArena.Infrastructure
 
         public async Task<SaveResponse> RegisterUser(User data)
         {
-            // check if it works in userservice
+            
 
-
-            // check if password is strong 
-            //bool isLood = data.Password.Any(p => !char.IsLetterOrDigit(p));
-            //bool isNum = data.Password.Any(p => char.IsNumber(p));
-            //bool isUpper = data.Password.Any(p => char.IsUpper(p));
-            //bool isLower = data.Password.Any(p => char.IsLower(p));
-            //bool isUptoEight = UptoEight(data.Password);
-
-            //if(!isLood || !isNum || !isUpper || !isLower || !isUptoEight)
-            //    return new SaveResponse { Result = "Invalid Password", status = false};
-
-            //// check if email address is valid
-            //if(!ValidateAddress(data.Email))
-            //    return new SaveResponse { Result = "Email Address is Invalid", status = false };
-
-
-            // check if it works in userservice
-
-            User user;
+            
             try
             {
 
                 // Assign the basic role to user if no role is selected
-                if (data.RoleID == 0) data.RoleID = 8;
+                if (data.RoleID == 0) data.RoleID = 2;  
 
                 // hash password
                 var password = CreatePasswordSalt(data.Password);
 
-                user = new User
+                var user = new User
                 {
                     UserName = data.UserName,
                     Email = data.Email,
@@ -457,6 +439,32 @@ namespace CorporateArena.Infrastructure
                 return status;
             }
             return status;
+        }
+
+        public async Task<int> CreateSystemUserAsync(int roleID)
+        {
+            try
+            {
+                var user = new User
+                {
+                    DateCreated = DateTime.Now,
+                    IsActive = true,
+                    Email = "tkolawole@inspirecoders.com",
+                    FirstName = "System",
+                    LastName = "User",
+                    Password = "Inspirecoders1@",
+                    RoleID = roleID,
+                    UserName = "SystemUser",
+                    PhoneNumber = "080373762728"
+                };
+                await _context.AppUsers.AddAsync(user);
+                await _context.SaveChangesAsync();
+                return user.ID;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

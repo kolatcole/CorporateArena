@@ -13,6 +13,9 @@ namespace CorporateArena.Domain
         Task<int> deleteAsync(Role data);
         Task<int> updateAsync(Role data);
         Task<Role> getAsync(int ID);
+        Task<Role> getRoleByNameAsync(string roleName);
         Task<List<Role>> getAllAsync();
+        Task<int> CreateSuperAsync();
+        Task<int> CreateBasicAsync();
     }
 }

@@ -62,7 +62,7 @@ namespace CorporateArena.Domain
                 {
                     var privilege = new Privilege
                     {
-                        DateCreated = DateTime.Now,
+                        
                         Action = actions,
                         Entity = model.Value,
                         DisplayName = actions + ' ' + model.Value,

@@ -126,5 +126,16 @@ namespace CorporateArena.Presentation
             var result = await _service.AssignRoletoUserAsync(roleID, userID);
             return Ok(result);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("CreateSystemUser")]
+        public async Task<IActionResult> CreateSystemUser()
+        {
+            var result = await _service.SaveSystemUser();
+            return Ok(result);
+        }
     }
 }

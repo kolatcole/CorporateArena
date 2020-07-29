@@ -38,6 +38,21 @@ namespace CorporateArena.Infrastructure
             }
         }
 
+        public async Task<Role> getRoleByNameAsync(string roleName)
+        {
+            try
+            {
+                var role = await _context.Roles.Where(x => x.Name == roleName).SingleOrDefaultAsync();
+                return role;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+
+        }
+
         public async Task<Role> getAsync(int ID)
         {
             try
@@ -135,7 +150,49 @@ namespace CorporateArena.Infrastructure
             {
                 throw ex;
             }
-            // throw new NotImplementedException();
+            
+        }
+
+        public async Task<int> CreateSuperAsync()
+        {
+            try
+            {
+                var role = new Role
+                {
+                    DateCreated = DateTime.Now,
+                    DisplayName = "SuperUser",
+                    Name = "SuperUser"
+                };
+
+                await _context.Roles.AddAsync(role);
+                await _context.SaveChangesAsync();
+                return role.ID;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
+        }
+        public async Task<int> CreateBasicAsync()
+        {
+            try
+            {
+                var role = new Role
+                {
+                    DateCreated = DateTime.Now,
+                    DisplayName = "Basic",
+                    Name = "Basic"
+                };
+
+                await _context.Roles.AddAsync(role);
+                await _context.SaveChangesAsync();
+                return role.ID;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

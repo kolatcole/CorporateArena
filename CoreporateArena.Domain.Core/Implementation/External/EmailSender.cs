@@ -56,7 +56,7 @@ namespace CorporateArena.Presentation
         {
             var client = new SendGridClient(_SendgridKey);
             var from = new EmailAddress(email.Email, email.Username);
-            var subject = "testing with default subject";
+            var subject = email.Subject;
             var to = new EmailAddress("kolawoletoheeb18@yahoo.com");
             var plainContent = email.Message;
             var htmlContent = email.Message;

@@ -106,6 +106,8 @@ namespace CorporateArena
             services.AddScoped<IRepo<TrafficComment>, TrafficCommentRepo>();
             services.AddScoped<IVacancyRepo, VacancyRepo>();
             services.AddScoped<IRepo<Contact>, ContactRepo>();
+            services.AddScoped<IUserRoleRepo, UserRoleRepo>();
+            
 
 
             services.AddTransient<IEmailSender>(a => new EmailSender(SendgridKey));

@@ -4,14 +4,16 @@ using CorporateArena.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CorporateArena.Presentation.Core.Migrations
 {
     [DbContext(typeof(TContext))]
-    partial class TContextModelSnapshot : ModelSnapshot
+    [Migration("20200729095257_seed")]
+    partial class seed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -225,6 +227,12 @@ namespace CorporateArena.Presentation.Core.Migrations
                     b.Property<string>("Action")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("DisplayName")
                         .HasColumnType("nvarchar(max)");
 
@@ -237,6 +245,12 @@ namespace CorporateArena.Presentation.Core.Migrations
                     b.Property<int?>("RoleID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UserCreated")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserModified")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
                     b.HasIndex("RoleID");
@@ -247,194 +261,14 @@ namespace CorporateArena.Presentation.Core.Migrations
                         new
                         {
                             ID = 1,
-                            Action = "Create",
-                            DisplayName = "Create User",
-                            Entity = "User",
-                            Name = "CreateUser"
-                        },
-                        new
-                        {
-                            ID = 2,
-                            Action = "Read",
-                            DisplayName = "Read User",
-                            Entity = "User",
-                            Name = "ReadUser"
-                        },
-                        new
-                        {
-                            ID = 3,
-                            Action = "Update",
-                            DisplayName = "Update User",
-                            Entity = "User",
-                            Name = "UpdateUser"
-                        },
-                        new
-                        {
-                            ID = 4,
-                            Action = "Delete",
-                            DisplayName = "Delete User",
-                            Entity = "User",
-                            Name = "DeleteUser"
-                        },
-                        new
-                        {
-                            ID = 5,
-                            Action = "Create",
-                            DisplayName = "Create Role",
-                            Entity = "Role",
-                            Name = "CreateRole"
-                        },
-                        new
-                        {
-                            ID = 6,
-                            Action = "Read",
-                            DisplayName = "Read Role",
-                            Entity = "Role",
-                            Name = "ReadRole"
-                        },
-                        new
-                        {
-                            ID = 7,
-                            Action = "Update",
-                            DisplayName = "Update Role",
-                            Entity = "Role",
-                            Name = "UpdateRole"
-                        },
-                        new
-                        {
-                            ID = 8,
-                            Action = "Delete",
-                            DisplayName = "Delete Role",
-                            Entity = "Role",
-                            Name = "DeleteRole"
-                        },
-                        new
-                        {
-                            ID = 9,
-                            Action = "Create",
-                            DisplayName = "Create BrainTeaser",
-                            Entity = "BrainTeaser",
-                            Name = "CreateBrainTeaser"
-                        },
-                        new
-                        {
-                            ID = 10,
-                            Action = "Read",
-                            DisplayName = "Read BrainTeaser",
-                            Entity = "BrainTeaser",
-                            Name = "ReadBrainTeaser"
-                        },
-                        new
-                        {
-                            ID = 11,
-                            Action = "Update",
-                            DisplayName = "Update BrainTeaser",
-                            Entity = "BrainTeaser",
-                            Name = "UpdateBrainTeaser"
-                        },
-                        new
-                        {
-                            ID = 12,
-                            Action = "Delete",
-                            DisplayName = "Delete BrainTeaser",
-                            Entity = "BrainTeaser",
-                            Name = "DeleteBrainTeaser"
-                        },
-                        new
-                        {
-                            ID = 13,
-                            Action = "Create",
-                            DisplayName = "Create Vacancy",
-                            Entity = "Vacancy",
-                            Name = "CreateVacancy"
-                        },
-                        new
-                        {
-                            ID = 14,
-                            Action = "Read",
-                            DisplayName = "Read Vacancy",
-                            Entity = "Vacancy",
-                            Name = "ReadVacancy"
-                        },
-                        new
-                        {
-                            ID = 15,
-                            Action = "Update",
-                            DisplayName = "Update Vacancy",
-                            Entity = "Vacancy",
-                            Name = "UpdateVacancy"
-                        },
-                        new
-                        {
-                            ID = 16,
-                            Action = "Delete",
-                            DisplayName = "Delete Vacancy",
-                            Entity = "Vacancy",
-                            Name = "DeleteVacancy"
-                        },
-                        new
-                        {
-                            ID = 17,
-                            Action = "Create",
-                            DisplayName = "Create Article",
-                            Entity = "Article",
-                            Name = "CreateArticle"
-                        },
-                        new
-                        {
-                            ID = 18,
-                            Action = "Read",
-                            DisplayName = "Read Article",
-                            Entity = "Article",
-                            Name = "ReadArticle"
-                        },
-                        new
-                        {
-                            ID = 19,
-                            Action = "Update",
-                            DisplayName = "Update Article",
-                            Entity = "Article",
-                            Name = "UpdateArticle"
-                        },
-                        new
-                        {
-                            ID = 20,
-                            Action = "Delete",
-                            DisplayName = "Delete Article",
-                            Entity = "Article",
-                            Name = "DeleteArticle"
-                        },
-                        new
-                        {
-                            ID = 21,
-                            Action = "Create",
-                            DisplayName = "Create TrafficUpdates",
-                            Entity = "TrafficUpdates",
-                            Name = "CreateTrafficUpdates"
-                        },
-                        new
-                        {
-                            ID = 22,
-                            Action = "Read",
-                            DisplayName = "Read TrafficUpdates",
-                            Entity = "TrafficUpdates",
-                            Name = "ReadTrafficUpdates"
-                        },
-                        new
-                        {
-                            ID = 23,
-                            Action = "Update",
-                            DisplayName = "Update TrafficUpdates",
-                            Entity = "TrafficUpdates",
-                            Name = "UpdateTrafficUpdates"
-                        },
-                        new
-                        {
-                            ID = 24,
-                            Action = "Delete",
-                            DisplayName = "Delete TrafficUpdates",
-                            Entity = "TrafficUpdates",
-                            Name = "DeleteTrafficUpdates"
+                            Action = "act",
+                            DateCreated = new DateTime(2020, 7, 29, 10, 52, 56, 443, DateTimeKind.Local).AddTicks(9134),
+                            DateModified = new DateTime(2020, 7, 29, 10, 52, 56, 445, DateTimeKind.Local).AddTicks(5659),
+                            DisplayName = "test",
+                            Entity = "testEnt",
+                            Name = "dd",
+                            UserCreated = 1,
+                            UserModified = 1
                         });
                 });
 
@@ -466,26 +300,6 @@ namespace CorporateArena.Presentation.Core.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            DateCreated = new DateTime(2020, 7, 29, 11, 50, 26, 16, DateTimeKind.Local).AddTicks(6205),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DisplayName = "SuperUser",
-                            Name = "SuperUser",
-                            UserCreated = 1
-                        },
-                        new
-                        {
-                            ID = 2,
-                            DateCreated = new DateTime(2020, 7, 29, 11, 50, 26, 18, DateTimeKind.Local).AddTicks(1245),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DisplayName = "Basic",
-                            Name = "Basic",
-                            UserCreated = 1
-                        });
                 });
 
             modelBuilder.Entity("CorporateArena.Domain.RolePrivilege", b =>
@@ -504,188 +318,6 @@ namespace CorporateArena.Presentation.Core.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("RolePrivileges");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            PrivilegeID = 2,
-                            RoleID = 2
-                        },
-                        new
-                        {
-                            ID = 2,
-                            PrivilegeID = 6,
-                            RoleID = 2
-                        },
-                        new
-                        {
-                            ID = 3,
-                            PrivilegeID = 10,
-                            RoleID = 2
-                        },
-                        new
-                        {
-                            ID = 4,
-                            PrivilegeID = 14,
-                            RoleID = 2
-                        },
-                        new
-                        {
-                            ID = 5,
-                            PrivilegeID = 18,
-                            RoleID = 2
-                        },
-                        new
-                        {
-                            ID = 6,
-                            PrivilegeID = 22,
-                            RoleID = 2
-                        },
-                        new
-                        {
-                            ID = 7,
-                            PrivilegeID = 1,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 8,
-                            PrivilegeID = 2,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 9,
-                            PrivilegeID = 3,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 10,
-                            PrivilegeID = 4,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 11,
-                            PrivilegeID = 5,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 12,
-                            PrivilegeID = 6,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 13,
-                            PrivilegeID = 7,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 14,
-                            PrivilegeID = 8,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 15,
-                            PrivilegeID = 9,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 16,
-                            PrivilegeID = 10,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 17,
-                            PrivilegeID = 11,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 18,
-                            PrivilegeID = 12,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 19,
-                            PrivilegeID = 13,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 20,
-                            PrivilegeID = 14,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 21,
-                            PrivilegeID = 15,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 22,
-                            PrivilegeID = 16,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 23,
-                            PrivilegeID = 17,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 24,
-                            PrivilegeID = 18,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 25,
-                            PrivilegeID = 19,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 26,
-                            PrivilegeID = 20,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 27,
-                            PrivilegeID = 21,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 28,
-                            PrivilegeID = 22,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 29,
-                            PrivilegeID = 23,
-                            RoleID = 1
-                        },
-                        new
-                        {
-                            ID = 30,
-                            PrivilegeID = 24,
-                            RoleID = 1
-                        });
                 });
 
             modelBuilder.Entity("CorporateArena.Domain.TrafficComment", b =>
@@ -795,20 +427,6 @@ namespace CorporateArena.Presentation.Core.Migrations
                     b.HasIndex("RoleID");
 
                     b.ToTable("AppUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            DateCreated = new DateTime(2020, 7, 29, 11, 50, 26, 18, DateTimeKind.Local).AddTicks(5357),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "tkolawole@Inspirecoders.com",
-                            FirstName = "System",
-                            IsActive = true,
-                            LastName = "User",
-                            RoleID = 1,
-                            UserName = "System Administrator"
-                        });
                 });
 
             modelBuilder.Entity("CorporateArena.Domain.UserRole", b =>
@@ -839,16 +457,6 @@ namespace CorporateArena.Presentation.Core.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("UserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            DateCreated = new DateTime(2020, 7, 29, 11, 50, 26, 18, DateTimeKind.Local).AddTicks(9705),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RoleID = 1,
-                            UserID = 1
-                        });
                 });
 
             modelBuilder.Entity("CorporateArena.Domain.Vacancy", b =>

@@ -14,14 +14,17 @@ namespace CorporateArena.Domain
 
         private readonly IUserRepo _uRepo;
         private readonly IPrivilegeRepo _pRepo;
-        
+        private readonly IRoleRepo _rRepo;
+        private readonly IUserRoleRepo _uRRepo;
         private readonly IEmailSender _eService;
 
-        public UserService(IUserRepo uRepo, IPrivilegeRepo pRepo, IEmailSender eService)
+        public UserService(IUserRepo uRepo, IPrivilegeRepo pRepo, IRoleRepo rRepo, IUserRoleRepo uRRepo, IEmailSender eService)
         {
             _uRepo = uRepo;
             _pRepo = pRepo;
             _eService = eService;
+            _rRepo = rRepo;
+            _uRRepo = uRRepo;
 
 
         }
@@ -253,6 +256,30 @@ namespace CorporateArena.Domain
         {
             var result =await _uRepo.GetUserRoles();
             return result;
+        }
+
+        public async Task<SaveResponse> SaveSystemUser()
+        {
+            // get superuser role ID
+
+            var role = await _rRepo.getRoleByNameAsync("SuperUser");
+
+            // save system user and get user id
+            var UID=await _uRepo.CreateSystemUserAsync(role.ID);
+
+            // Assign role to user with userRole
+
+            var userRole = new UserRole
+            {
+                DateCreated=DateTime.Now,
+                RoleID=role.ID,
+                UserID=UID
+            };
+
+            await _uRRepo.SaveUserRoleAsync(userRole);
+
+            return new SaveResponse { ID = UID, status = true, Result = "System User was created" };
+
         }
     }
 }

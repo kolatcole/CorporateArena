@@ -7,14 +7,16 @@ namespace CorporateArena.Domain
 {
     public class RoleService : IRoleService
     {
-        
+
         private readonly IRepo<RolePrivilege> _rpRepo;
         private readonly IRoleRepo _rRepo;
+        private readonly IPrivilegeRepo _pRepo;
 
-        public RoleService(IRepo<RolePrivilege> rpRepo, IRoleRepo rRepo)
+        public RoleService(IRepo<RolePrivilege> rpRepo, IRoleRepo rRepo, IPrivilegeRepo pRepo)
         {
             _rpRepo = rpRepo;
             _rRepo = rRepo;
+            _pRepo = pRepo;
         }
 
         public async Task<SaveResponse> SaveRoleAsync(Role data)
@@ -22,8 +24,8 @@ namespace CorporateArena.Domain
             var result = await _rRepo.insertAsync(data);
 
             // Assign privileges to role if ids was selected
-            if (data.PrivilegeIDs!=null)
-                
+            if (data.PrivilegeIDs != null)
+
                 await AssignMultiplePrivileges(data);
 
             return result;
@@ -43,7 +45,7 @@ namespace CorporateArena.Domain
 
         }
 
-       
+
         public async Task<Response> AssignPrivilegetoRoleAsync(int roleID, int privilegeID)
         {
             var result = await _rRepo.AssignPrivilegetoRoleAsync(roleID, privilegeID);
@@ -55,12 +57,12 @@ namespace CorporateArena.Domain
 
             var status = false;
             List<RolePrivilege> rolePrivileges = new List<RolePrivilege>();
-            foreach(var pid in data.PrivilegeIDs)
+            foreach (var pid in data.PrivilegeIDs)
             {
                 var rp = new RolePrivilege
                 {
-                    RoleID=data.ID,
-                    PrivilegeID=pid
+                    RoleID = data.ID,
+                    PrivilegeID = pid
                 };
                 rolePrivileges.Add(rp);
 
@@ -76,6 +78,49 @@ namespace CorporateArena.Domain
             var rolePrivileges = await _rpRepo.getAllAsync();
             return rolePrivileges;
         }
+
+        public async Task<SaveResponse> SaveSuperUser()
+        {
+
+            // save role to get ID
+
+            int RID = await _rRepo.CreateSuperAsync();
+
+            // get all prvileges and assign to role
+
+            var privileges = await _pRepo.getAllAsync();
+            var rolePrivileges = new List<RolePrivilege>();
+
+            if (privileges != null)
+            {
+                foreach (var privilege in privileges)
+                {
+                    var rolePriv = new RolePrivilege
+                    {
+                        PrivilegeID = privilege.ID,
+                        RoleID = RID
+                    };
+
+                    rolePrivileges.Add(rolePriv);
+                }
+
+                // Assign all privileges to the role
+
+                await _rpRepo.insertListAsync(rolePrivileges);
+            }
+
+            return new SaveResponse { ID = RID, Result = "SuperUser Role Created", status = true };
+
+        }
+
+        public async Task<SaveResponse> SaveBasicRole()
+        {
+
+            // save role to get ID
+
+            int RID = await _rRepo.CreateBasicAsync();
+            return new SaveResponse { ID = RID, Result = "Basic Role Created", status = true };
+        } 
 
 
     }

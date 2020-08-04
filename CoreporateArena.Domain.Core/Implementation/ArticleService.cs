@@ -30,11 +30,11 @@ namespace CorporateArena.Domain
             if (!userExist)
                 return new SaveResponse { status = false, Result = "User Not Found" };
 
-            string name = "CreateArticle";
-            var permission = await _uService.CheckforPermission(data.AuthorID, name);
+            //string name = "CreateArticle";
+            //var permission = await _uService.CheckforPermission(data.AuthorID, name);
 
-            if (!permission)
-                return new SaveResponse { Result = "User does not have permission to perform this action" };
+            //if (!permission)
+            //    return new SaveResponse { Result = "User does not have permission to perform this action" };
 
             int AID = await _repo.insertAsync(data);
             return new SaveResponse { ID = AID, status = true, Result = "Article successfully created" };

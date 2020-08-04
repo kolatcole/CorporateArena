@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CorporateArena.Domain;
+using CorporateArena.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,11 +21,13 @@ namespace CorporateArena.Presentation
             _service = service;
         }
 
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [A1AuthorizePermission(Permissions = "CreateArticle")]
         [HttpPost("SaveArticle")]
         public async Task<IActionResult> SaveArticle(Article data)
         {
@@ -31,6 +35,7 @@ namespace CorporateArena.Presentation
             return Ok(result);
         }
 
+        [Authorize]
         /// <summary>
         /// 
         /// </summary>

@@ -35,6 +35,8 @@ namespace CorporateArena.Domain
             Aq.Add(2, "Read");
             Aq.Add(3, "Update");
             Aq.Add(4, "Delete");
+            Aq.Add(5, "Like");
+            Aq.Add(6, "Comment");
 
             var actions = Aq.ToList();
             return actions;
@@ -45,10 +47,13 @@ namespace CorporateArena.Domain
         {
 
             new KeyValuePair<string, string>("User","User"),
+            new KeyValuePair<string, string>("Role To User","UserRole"),
             new KeyValuePair<string, string>("Role","Role"),
+            new KeyValuePair<string, string>("Privilege To Role","RolePrivilege"),
             new KeyValuePair<string, string>("Brain Teaser","BrainTeaser"),
             new KeyValuePair<string, string>("Vacancy","Vacancy"),
             new KeyValuePair<string, string>("Article","Article"),
+            new KeyValuePair<string, string>("Article Comment","ArticleComment"),
             new KeyValuePair<string, string>("Traffic Updates","TrafficUpdates")
 
         };

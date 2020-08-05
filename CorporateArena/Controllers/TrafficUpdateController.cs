@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CorporateArena.Domain;
+using CorporateArena.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,6 +27,8 @@ namespace CorporateArena.Presentation
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.CreateTrafficUpdate)]
         [HttpPost("SaveTrafficUpdate")]
         public async Task<IActionResult> SaveTrafficUpdate(TrafficUpdate data)
         {
@@ -37,6 +41,8 @@ namespace CorporateArena.Presentation
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.UpdateTrafficUpdate)]
         [HttpGet("GetTrafficUpdate/{ID}")]
         public async Task<IActionResult> GetTrafficUpdate(int ID)
         {
@@ -50,6 +56,7 @@ namespace CorporateArena.Presentation
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Authorize]
         [HttpPost("CommentOnTrafficUpdate")]
         public async Task<IActionResult> CommentOnTrafficUpdate(TrafficComment data)
         {
@@ -63,6 +70,8 @@ namespace CorporateArena.Presentation
         /// <param name="UserID"></param>
         /// <param name="UpdateTrafficID"></param>
         /// <returns></returns>
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.UpdateTrafficUpdate)]
         [HttpDelete("DeleteTrafficUpdate/{UserID}/{UpdateTrafficID}")]
         public async Task<IActionResult> DeleteTrafficUpdate(int UserID, int UpdateTrafficID)
         {

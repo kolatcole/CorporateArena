@@ -233,7 +233,7 @@ namespace CorporateArena.Infrastructure
                         issuer: "",
                         audience: "",
                         claims:claims,
-                        expires: DateTime.Now.AddMinutes(Convert.ToDouble(1)),
+                        expires: DateTime.Now.AddMinutes(Convert.ToDouble(_jwtOpt.ExpiryTime)),
                         signingCredentials: new Microsoft.IdentityModel.Tokens.SigningCredentials(new SymmetricSecurityKey
                         (Encoding.ASCII.GetBytes(_jwtOpt.Secret)), SecurityAlgorithms.HmacSha256)
                     );
@@ -422,6 +422,20 @@ namespace CorporateArena.Infrastructure
             return status;
         }
 
+        public async Task<User> GetUserByID(int ID)
+        {
+            try
+            {
+                var user = await _context.AppUsers.Where(x => x.ID == ID).SingleOrDefaultAsync();
+                return user;
+
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         // return true if username is already used, false if otherwise
         public async Task<bool> GetUserByUsername(string username)
         {
@@ -460,6 +474,23 @@ namespace CorporateArena.Infrastructure
                 await _context.AppUsers.AddAsync(user);
                 await _context.SaveChangesAsync();
                 return user.ID;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task Update(User data)
+        {
+            try 
+            {
+                var user = await _context.AppUsers.FindAsync(data.ID);
+                if (data.Password != null) user.Password = data.Password;
+
+                 _context.AppUsers.Update(user);
+                await _context.SaveChangesAsync();
+
             }
             catch(Exception ex)
             {

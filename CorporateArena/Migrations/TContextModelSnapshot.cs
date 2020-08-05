@@ -280,13 +280,21 @@ namespace CorporateArena.Presentation.Core.Migrations
                         {
                             ID = 5,
                             Action = "Create",
+                            DisplayName = "Create UserRole",
+                            Entity = "UserRole",
+                            Name = "CreateUserRole"
+                        },
+                        new
+                        {
+                            ID = 6,
+                            Action = "Create",
                             DisplayName = "Create Role",
                             Entity = "Role",
                             Name = "CreateRole"
                         },
                         new
                         {
-                            ID = 6,
+                            ID = 7,
                             Action = "Read",
                             DisplayName = "Read Role",
                             Entity = "Role",
@@ -294,7 +302,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                         },
                         new
                         {
-                            ID = 7,
+                            ID = 8,
                             Action = "Update",
                             DisplayName = "Update Role",
                             Entity = "Role",
@@ -302,7 +310,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                         },
                         new
                         {
-                            ID = 8,
+                            ID = 9,
                             Action = "Delete",
                             DisplayName = "Delete Role",
                             Entity = "Role",
@@ -310,7 +318,15 @@ namespace CorporateArena.Presentation.Core.Migrations
                         },
                         new
                         {
-                            ID = 9,
+                            ID = 10,
+                            Action = "Create",
+                            DisplayName = "Create RolePrivilege",
+                            Entity = "RolePrivilege",
+                            Name = "CreateRolePrivilege"
+                        },
+                        new
+                        {
+                            ID = 11,
                             Action = "Create",
                             DisplayName = "Create BrainTeaser",
                             Entity = "BrainTeaser",
@@ -318,7 +334,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                         },
                         new
                         {
-                            ID = 10,
+                            ID = 12,
                             Action = "Read",
                             DisplayName = "Read BrainTeaser",
                             Entity = "BrainTeaser",
@@ -326,7 +342,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                         },
                         new
                         {
-                            ID = 11,
+                            ID = 13,
                             Action = "Update",
                             DisplayName = "Update BrainTeaser",
                             Entity = "BrainTeaser",
@@ -334,7 +350,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                         },
                         new
                         {
-                            ID = 12,
+                            ID = 14,
                             Action = "Delete",
                             DisplayName = "Delete BrainTeaser",
                             Entity = "BrainTeaser",
@@ -342,7 +358,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                         },
                         new
                         {
-                            ID = 13,
+                            ID = 15,
                             Action = "Create",
                             DisplayName = "Create Vacancy",
                             Entity = "Vacancy",
@@ -350,7 +366,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                         },
                         new
                         {
-                            ID = 14,
+                            ID = 16,
                             Action = "Read",
                             DisplayName = "Read Vacancy",
                             Entity = "Vacancy",
@@ -358,7 +374,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                         },
                         new
                         {
-                            ID = 15,
+                            ID = 17,
                             Action = "Update",
                             DisplayName = "Update Vacancy",
                             Entity = "Vacancy",
@@ -366,7 +382,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                         },
                         new
                         {
-                            ID = 16,
+                            ID = 18,
                             Action = "Delete",
                             DisplayName = "Delete Vacancy",
                             Entity = "Vacancy",
@@ -374,7 +390,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                         },
                         new
                         {
-                            ID = 17,
+                            ID = 19,
                             Action = "Create",
                             DisplayName = "Create Article",
                             Entity = "Article",
@@ -382,7 +398,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                         },
                         new
                         {
-                            ID = 18,
+                            ID = 20,
                             Action = "Read",
                             DisplayName = "Read Article",
                             Entity = "Article",
@@ -390,7 +406,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                         },
                         new
                         {
-                            ID = 19,
+                            ID = 21,
                             Action = "Update",
                             DisplayName = "Update Article",
                             Entity = "Article",
@@ -398,7 +414,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                         },
                         new
                         {
-                            ID = 20,
+                            ID = 22,
                             Action = "Delete",
                             DisplayName = "Delete Article",
                             Entity = "Article",
@@ -406,35 +422,67 @@ namespace CorporateArena.Presentation.Core.Migrations
                         },
                         new
                         {
-                            ID = 21,
-                            Action = "Create",
-                            DisplayName = "Create TrafficUpdates",
-                            Entity = "TrafficUpdates",
-                            Name = "CreateTrafficUpdates"
-                        },
-                        new
-                        {
-                            ID = 22,
-                            Action = "Read",
-                            DisplayName = "Read TrafficUpdates",
-                            Entity = "TrafficUpdates",
-                            Name = "ReadTrafficUpdates"
-                        },
-                        new
-                        {
                             ID = 23,
-                            Action = "Update",
-                            DisplayName = "Update TrafficUpdates",
-                            Entity = "TrafficUpdates",
-                            Name = "UpdateTrafficUpdates"
+                            Action = "Comment",
+                            DisplayName = "Comment on Article",
+                            Entity = "Article",
+                            Name = "CommentArticle"
                         },
                         new
                         {
                             ID = 24,
+                            Action = "Like",
+                            DisplayName = "Like Article",
+                            Entity = "Article",
+                            Name = "LikeArticle"
+                        },
+                        new
+                        {
+                            ID = 25,
+                            Action = "Create",
+                            DisplayName = "Create ArticleComment",
+                            Entity = "ArticleComment",
+                            Name = "CreateArticleComment"
+                        },
+                        new
+                        {
+                            ID = 26,
+                            Action = "Like",
+                            DisplayName = "Like ArticleComment",
+                            Entity = "ArticleComment",
+                            Name = "LikeArticleComment"
+                        },
+                        new
+                        {
+                            ID = 27,
+                            Action = "Create",
+                            DisplayName = "Create TrafficUpdate",
+                            Entity = "TrafficUpdate",
+                            Name = "CreateTrafficUpdate "
+                        },
+                        new
+                        {
+                            ID = 28,
+                            Action = "Read",
+                            DisplayName = "Read TrafficUpdate",
+                            Entity = "TrafficUpdate",
+                            Name = "ReadTrafficUpdate"
+                        },
+                        new
+                        {
+                            ID = 29,
+                            Action = "Update",
+                            DisplayName = "Update TrafficUpdate",
+                            Entity = "TrafficUpdate",
+                            Name = "UpdateTrafficUpdate"
+                        },
+                        new
+                        {
+                            ID = 30,
                             Action = "Delete",
-                            DisplayName = "Delete TrafficUpdates",
-                            Entity = "TrafficUpdates",
-                            Name = "DeleteTrafficUpdates"
+                            DisplayName = "Delete TrafficUpdate",
+                            Entity = "TrafficUpdate",
+                            Name = "DeleteTrafficUpdate"
                         });
                 });
 
@@ -471,7 +519,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                         new
                         {
                             ID = 1,
-                            DateCreated = new DateTime(2020, 7, 29, 11, 57, 58, 266, DateTimeKind.Local).AddTicks(9030),
+                            DateCreated = new DateTime(2020, 8, 5, 12, 24, 15, 656, DateTimeKind.Local).AddTicks(672),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DisplayName = "SuperUser",
                             Name = "SuperUser",
@@ -480,7 +528,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                         new
                         {
                             ID = 2,
-                            DateCreated = new DateTime(2020, 7, 29, 11, 57, 58, 269, DateTimeKind.Local).AddTicks(3239),
+                            DateCreated = new DateTime(2020, 8, 5, 12, 24, 15, 658, DateTimeKind.Local).AddTicks(2717),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DisplayName = "Basic",
                             Name = "Basic",
@@ -515,31 +563,31 @@ namespace CorporateArena.Presentation.Core.Migrations
                         new
                         {
                             ID = 2,
-                            PrivilegeID = 6,
+                            PrivilegeID = 7,
                             RoleID = 2
                         },
                         new
                         {
                             ID = 3,
-                            PrivilegeID = 10,
+                            PrivilegeID = 12,
                             RoleID = 2
                         },
                         new
                         {
                             ID = 4,
-                            PrivilegeID = 14,
+                            PrivilegeID = 16,
                             RoleID = 2
                         },
                         new
                         {
                             ID = 5,
-                            PrivilegeID = 18,
+                            PrivilegeID = 20,
                             RoleID = 2
                         },
                         new
                         {
                             ID = 6,
-                            PrivilegeID = 22,
+                            PrivilegeID = 28,
                             RoleID = 2
                         },
                         new
@@ -685,6 +733,42 @@ namespace CorporateArena.Presentation.Core.Migrations
                             ID = 30,
                             PrivilegeID = 24,
                             RoleID = 1
+                        },
+                        new
+                        {
+                            ID = 31,
+                            PrivilegeID = 25,
+                            RoleID = 1
+                        },
+                        new
+                        {
+                            ID = 32,
+                            PrivilegeID = 26,
+                            RoleID = 1
+                        },
+                        new
+                        {
+                            ID = 33,
+                            PrivilegeID = 27,
+                            RoleID = 1
+                        },
+                        new
+                        {
+                            ID = 34,
+                            PrivilegeID = 28,
+                            RoleID = 1
+                        },
+                        new
+                        {
+                            ID = 35,
+                            PrivilegeID = 29,
+                            RoleID = 1
+                        },
+                        new
+                        {
+                            ID = 36,
+                            PrivilegeID = 30,
+                            RoleID = 1
                         });
                 });
 
@@ -800,12 +884,13 @@ namespace CorporateArena.Presentation.Core.Migrations
                         new
                         {
                             ID = 1,
-                            DateCreated = new DateTime(2020, 7, 29, 11, 57, 58, 269, DateTimeKind.Local).AddTicks(9300),
+                            DateCreated = new DateTime(2020, 8, 5, 12, 24, 15, 659, DateTimeKind.Local).AddTicks(315),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "tkolawole@Inspirecoders.com",
                             FirstName = "System",
                             IsActive = true,
                             LastName = "User",
+                            Password = "test",
                             RoleID = 1,
                             UserName = "System Administrator"
                         });
@@ -844,7 +929,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                         new
                         {
                             ID = 1,
-                            DateCreated = new DateTime(2020, 7, 29, 11, 57, 58, 270, DateTimeKind.Local).AddTicks(4524),
+                            DateCreated = new DateTime(2020, 8, 5, 12, 24, 15, 659, DateTimeKind.Local).AddTicks(7119),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleID = 1,
                             UserID = 1

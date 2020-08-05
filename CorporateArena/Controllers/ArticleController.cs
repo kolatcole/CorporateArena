@@ -27,32 +27,37 @@ namespace CorporateArena.Presentation
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        [A1AuthorizePermission(Permissions = "CreateArticle")]
-        [HttpPost("SaveArticle")]
-        public async Task<IActionResult> SaveArticle(Article data)
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.CreateArticle)]
+        [HttpPost("CreateArticle")]
+        public async Task<IActionResult> CreateArticle(Article data)
         {
             var result = await _service.SaveArticleAsync(data);
             return Ok(result);
         }
 
-        [Authorize]
         /// <summary>
         /// 
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
+
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.ReadArticle)]
         [HttpGet("GetArticle/{ID}")]
         public async Task<IActionResult> GetArticle(int ID)
         {
             var result = await _service.GetArticleWithCommentsAsync(ID);
             return Ok(result);
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.LikeArticle)]
         [HttpPost("LikeArticle")]
         public async Task<IActionResult> LikeArticle(ArticleLikeViewModel data)
         {
@@ -65,6 +70,8 @@ namespace CorporateArena.Presentation
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.CommentArticle)]
         [HttpPost("CommentOnArticle")]
         public async Task<IActionResult> CommentOnArticle(ArticleComment data)
         {
@@ -77,6 +84,8 @@ namespace CorporateArena.Presentation
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.LikeArticle)]
         [HttpPost("LikeComment")]
         public async Task<IActionResult> LikeComment(CommentLikeViewModel data)
         {
@@ -89,6 +98,8 @@ namespace CorporateArena.Presentation
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.DeleteArticle)]
         [HttpDelete("DeleteArticle/{UserID}/{ArticleID}")]
         public async Task<IActionResult> DeleteArticle(int UserID,int ArticleID)
         {

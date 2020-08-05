@@ -26,9 +26,9 @@ namespace CorporateArena.Domain
 
         public async Task<SaveResponse> SaveArticleAsync(Article data)
         {
-            var userExist = await _uService.CheckIfUserExist(data.AuthorID);
-            if (!userExist)
-                return new SaveResponse { status = false, Result = "User Not Found" };
+            //var userExist = await _uService.CheckIfUserExist(data.AuthorID);
+            //if (!userExist)
+            //    return new SaveResponse { status = false, Result = "User Not Found" };
 
             //string name = "CreateArticle";
             //var permission = await _uService.CheckforPermission(data.AuthorID, name);
@@ -43,10 +43,7 @@ namespace CorporateArena.Domain
 
         public async Task<SaveResponse> SubmitCommentAsync(ArticleComment data)
         {
-            var userExist = await _uService.CheckIfUserExist(data.UserCreated);
-            if (!userExist)
-                return new SaveResponse { status = false, Result = "User Not Found" };
-
+            
             int CID = await _cRepo.insertAsync(data);
             return new SaveResponse { ID = CID, status = true, Result = "Comment successfully submitted" };
 
@@ -64,15 +61,15 @@ namespace CorporateArena.Domain
         }
         public async Task<SaveResponse> UpdateArticleAsync(Article data)
         {
-            var userExist = await _uService.CheckIfUserExist(data.AuthorID);
-            if (!userExist)
-                return new SaveResponse { status = false, Result = "User Not Found" };
+            //var userExist = await _uService.CheckIfUserExist(data.AuthorID);
+            //if (!userExist)
+            //    return new SaveResponse { status = false, Result = "User Not Found" };
 
-            string name = "UpdateArticle";
-            var permission = await _uService.CheckforPermission(data.AuthorID, name);
+            //string name = "UpdateArticle";
+            //var permission = await _uService.CheckforPermission(data.AuthorID, name);
 
-            if (!permission)
-                return new SaveResponse { Result = "User does not have permission to perform this action" };
+            //if (!permission)
+            //    return new SaveResponse { Result = "User does not have permission to perform this action" };
 
             await _repo.updateAsync(data);
             return new SaveResponse { status = true, Result = "Article successfully updated" };
@@ -82,15 +79,15 @@ namespace CorporateArena.Domain
         public async Task<SaveResponse> DeleteArticleAsync(int ID, int userID)
         {
 
-            var userExist = await _uService.CheckIfUserExist(userID);
-            if (!userExist)
-                return new SaveResponse { status = false, Result = "User Not Found" };
+            //var userExist = await _uService.CheckIfUserExist(userID);
+            //if (!userExist)
+            //    return new SaveResponse { status = false, Result = "User Not Found" };
 
-            string name = "DeleteArticle";
-            var permission = await _uService.CheckforPermission(userID, name);
+            //string name = "DeleteArticle";
+            //var permission = await _uService.CheckforPermission(userID, name);
 
-            if (!permission)
-                return new SaveResponse { Result = "User does not have permission to perform this action" };
+            //if (!permission)
+            //    return new SaveResponse { Result = "User does not have permission to perform this action" };
 
             var comments = await _cRepo.getAllByIDAsync(ID);
             if (comments != null)
@@ -105,9 +102,7 @@ namespace CorporateArena.Domain
 
         public async Task<SaveResponse> LikeArticleAsync(int userID, int articleID)
         {
-            var userExist = await _uService.CheckIfUserExist(userID);
-            if (!userExist)
-                return new SaveResponse { status = false, Result = "User Not Found" };
+           
 
             var article = await _repo.getAsync(articleID);
 
@@ -144,9 +139,7 @@ namespace CorporateArena.Domain
 
         public async Task<SaveResponse> LikeCommentAsync(int userID,int articleID, int commentID)
         {
-            var userExist = await _uService.CheckIfUserExist(userID);
-            if (!userExist)
-                return new SaveResponse { status = false, Result = "User Not Found" };
+           
 
             var articleComment = await _repo.getSingleCommentAsync(userID, articleID, commentID);
 

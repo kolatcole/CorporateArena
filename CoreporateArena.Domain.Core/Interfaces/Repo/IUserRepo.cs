@@ -29,5 +29,8 @@ namespace CorporateArena.Domain
 
         Task<int> CreateSystemUserAsync(int roleID);
 
+        Task<User> GetUserByID(int ID);
+
+        Task Update(User data);
     }
 }

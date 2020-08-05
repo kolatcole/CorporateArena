@@ -258,27 +258,23 @@ namespace CorporateArena.Domain
             return result;
         }
 
-        public async Task<SaveResponse> SaveSystemUser()
+        public async Task<SaveResponse> ActivateSystemUserAsync()
         {
-            // get superuser role ID
 
-            var role = await _rRepo.getRoleByNameAsync("SuperUser");
+            // get superUser object
 
-            // save system user and get user id
-            var UID=await _uRepo.CreateSystemUserAsync(role.ID);
+            var user = await _uRepo.GetUserByID(1);
 
-            // Assign role to user with userRole
+            // update user with hash 
 
-            var userRole = new UserRole
-            {
-                DateCreated=DateTime.Now,
-                RoleID=role.ID,
-                UserID=UID
-            };
+            var hash = CreatePasswordSalt(user.Password);
 
-            await _uRRepo.SaveUserRoleAsync(userRole);
+            user.Password = hash;
+            await _uRepo.Update(user);
 
-            return new SaveResponse { ID = UID, status = true, Result = "System User was created" };
+
+
+            return new SaveResponse {  status = true, Result = "System User was activated" };
 
         }
     }

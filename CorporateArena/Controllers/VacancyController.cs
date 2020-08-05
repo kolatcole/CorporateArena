@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CorporateArena.Domain;
+using CorporateArena.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,12 +21,14 @@ namespace CorporateArena.Presentation.Core.Controllers
             _service = service;
         }
 
-       
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.CreateVacancy)]
         [HttpPost("SaveVacancy")]
         public async Task<IActionResult> SaveVacancy(Vacancy data)
         {
@@ -37,6 +41,8 @@ namespace CorporateArena.Presentation.Core.Controllers
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.ReadVacancy)]
         [HttpGet("GetVacancy/{ID}")]
         public async Task<IActionResult> GetVacancy(int ID)
         {
@@ -49,6 +55,8 @@ namespace CorporateArena.Presentation.Core.Controllers
         /// </summary>
         /// <param name="mode"></param>
         /// <returns></returns>
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.ReadVacancy)]
         [HttpGet("GetVacancyByMode/{mode}")]
         public async Task<IActionResult> GetVacancyByMode(string mode)
         {
@@ -61,6 +69,8 @@ namespace CorporateArena.Presentation.Core.Controllers
         /// </summary>
         /// <param name="title"></param>
         /// <returns></returns>
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.ReadVacancy)]
         [HttpGet("GetVacancyByTitle/{title}")]
         public async Task<IActionResult> GetVacancyByTitle(string title)
         {
@@ -73,6 +83,9 @@ namespace CorporateArena.Presentation.Core.Controllers
         /// </summary>
         /// <param name="location"></param>
         /// <returns></returns>
+
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.ReadVacancy)]
         [HttpGet("GetVacancyByLocation/{location}")]
         public async Task<IActionResult> GetVacancyByLocation(string location)
         {
@@ -85,6 +98,9 @@ namespace CorporateArena.Presentation.Core.Controllers
         /// </summary>
         /// <param name="industry"></param>
         /// <returns></returns>
+
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.ReadVacancy)]
         [HttpGet("GetVacancyByIndustry/{industry}")]
         public async Task<IActionResult> GetVacancyByIndustry(string industry)
         {
@@ -100,6 +116,9 @@ namespace CorporateArena.Presentation.Core.Controllers
         /// <param name="UserID"></param>
         /// <param name="VacancyID"></param>
         /// <returns></returns>
+
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.DeleteVacancy)]
         [HttpDelete("DeleteVacancy/{UserID}/{VacancyID}")]
         public async Task<IActionResult> DeleteVacancy(int UserID, int VacancyID)
         {

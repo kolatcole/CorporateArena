@@ -36,21 +36,21 @@ namespace CorporateArena.Infrastructure
                 {
                     ID=1,
                     DisplayName="Create User",
-                    Name= "CreateUser",
+                    Name= Permission.CreateUser,
                     Entity = "User",
                     Action= "Create"
                 }, new Privilege
                 {
                     ID = 2,
                     DisplayName = "Read User",
-                    Name = "ReadUser",
+                    Name = Permission.ReadUser,
                     Entity = "User",
                     Action = "Read"
                 }, new Privilege
                 {
                     ID = 3,
                     DisplayName = "Update User",
-                    Name = "UpdateUser",
+                    Name = Permission.UpdateUser,
                     Entity = "User",
                     Action = "Update"
                 },
@@ -58,149 +58,193 @@ namespace CorporateArena.Infrastructure
                 {
                     ID = 4,
                     DisplayName = "Delete User",
-                    Name = "DeleteUser",
+                    Name = Permission.DeleteUser,
                     Entity = "User",
                     Action = "Delete"
                 }, new Privilege
                 {
                     ID = 5,
-                    DisplayName = "Create Role",
-                    Name = "CreateRole",
-                    Entity = "Role",
+                    DisplayName = "Create UserRole",
+                    Name = Permission.AssignRoleToUser,
+                    Entity = "UserRole",
                     Action = "Create"
-                }, new Privilege
+                },
+                new Privilege
                 {
                     ID = 6,
-                    DisplayName = "Read Role",
-                    Name = "ReadRole",
+                    DisplayName = "Create Role",
+                    Name = Permission.CreateRole,
                     Entity = "Role",
-                    Action = "Read"
+                    Action = "Create"
                 }, new Privilege
                 {
                     ID = 7,
-                    DisplayName = "Update Role",
-                    Name = "UpdateRole",
+                    DisplayName = "Read Role",
+                    Name = Permission.ReadRole,
                     Entity = "Role",
-                    Action = "Update"
+                    Action = "Read"
                 }, new Privilege
                 {
                     ID = 8,
+                    DisplayName = "Update Role",
+                    Name = Permission.UpdateRole,
+                    Entity = "Role",
+                    Action = "Update"
+                }, new Privilege
+                {
+                    ID = 9,
                     DisplayName = "Delete Role",
-                    Name = "DeleteRole",
+                    Name = Permission.DeleteRole,
                     Entity = "Role",
                     Action = "Delete"
                 }, new Privilege
                 {
-                    ID = 9,
+                    ID = 10,
+                    DisplayName = "Create RolePrivilege",
+                    Name = Permission.AssignPrivilegeToRole,
+                    Entity = "RolePrivilege",
+                    Action = "Create"
+                },
+                new Privilege
+                {
+                    ID = 11,
                     DisplayName = "Create BrainTeaser",
-                    Name = "CreateBrainTeaser",
+                    Name = Permission.CreateBrainTeaser,
                     Entity = "BrainTeaser",
                     Action = "Create"
                 }, new Privilege
                 {
-                    ID = 10,
+                    ID = 12,
                     DisplayName = "Read BrainTeaser",
-                    Name = "ReadBrainTeaser",
+                    Name = Permission.ReadBrainTeaser,
                     Entity = "BrainTeaser",
                     Action = "Read"
                 }, new Privilege
                 {
-                    ID = 11,
+                    ID = 13,
                     DisplayName = "Update BrainTeaser",
-                    Name = "UpdateBrainTeaser",
+                    Name = Permission.UpdateBrainTeaser,
                     Entity = "BrainTeaser",
                     Action = "Update"
                 }, new Privilege
                 {
-                    ID = 12,
+                    ID = 14,
                     DisplayName = "Delete BrainTeaser",
-                    Name = "DeleteBrainTeaser",
+                    Name = Permission.DeleteBrainTeaser,
                     Entity = "BrainTeaser",
                     Action = "Delete"
                 }, new Privilege
                 {
-                    ID = 13,
+                    ID = 15,
                     DisplayName = "Create Vacancy",
-                    Name = "CreateVacancy",
+                    Name = Permission.CreateVacancy,
                     Entity = "Vacancy",
                     Action = "Create"
                 }, new Privilege
                 {
-                    ID = 14,
+                    ID = 16,
                     DisplayName = "Read Vacancy",
-                    Name = "ReadVacancy",
+                    Name = Permission.ReadVacancy,
                     Entity = "Vacancy",
                     Action = "Read"
                 }, new Privilege
                 {
-                    ID = 15,
+                    ID = 17,
                     DisplayName = "Update Vacancy",
-                    Name = "UpdateVacancy",
+                    Name = Permission.UpdateVacancy,
                     Entity = "Vacancy",
                     Action = "Update"
                 },
                 new Privilege
                 {
-                    ID = 16,
+                    ID = 18,
                     DisplayName = "Delete Vacancy",
-                    Name = "DeleteVacancy",
+                    Name = Permission.DeleteVacancy,
                     Entity = "Vacancy",
                     Action = "Delete"
                 }, new Privilege
                 {
-                    ID = 17,
+                    ID = 19,
                     DisplayName = "Create Article",
-                    Name = "CreateArticle",
+                    Name = Permission.CreateArticle,
                     Entity = "Article",
                     Action = "Create"
                 }, new Privilege
                 {
-                    ID = 18,
+                    ID = 20,
                     DisplayName = "Read Article",
-                    Name = "ReadArticle",
+                    Name = Permission.ReadArticle,
                     Entity = "Article",
                     Action = "Read"
                 }, new Privilege
                 {
-                    ID = 19,
+                    ID = 21,
                     DisplayName = "Update Article",
-                    Name = "UpdateArticle",
+                    Name = Permission.UpdateArticle,
                     Entity = "Article",
                     Action = "Update"
                 }, new Privilege
                 {
-                    ID = 20,
+                    ID = 22,
                     DisplayName = "Delete Article",
-                    Name = "DeleteArticle",
+                    Name = Permission.DeleteArticle,
                     Entity = "Article",
                     Action = "Delete"
                 }, new Privilege
                 {
-                    ID = 21,
-                    DisplayName = "Create TrafficUpdates",
-                    Name = "CreateTrafficUpdates",
-                    Entity = "TrafficUpdates",
-                    Action = "Create"
-                }, new Privilege
-                {
-                    ID = 22,
-                    DisplayName = "Read TrafficUpdates",
-                    Name = "ReadTrafficUpdates",
-                    Entity = "TrafficUpdates",
-                    Action = "Read"
-                }, new Privilege
-                {
                     ID = 23,
-                    DisplayName = "Update TrafficUpdates",
-                    Name = "UpdateTrafficUpdates",
-                    Entity = "TrafficUpdates",
-                    Action = "Update"
+                    DisplayName = "Comment on Article",
+                    Name = Permission.CommentArticle,
+                    Entity = "Article",
+                    Action = "Comment"
                 }, new Privilege
                 {
                     ID = 24,
-                    DisplayName = "Delete TrafficUpdates",
-                    Name = "DeleteTrafficUpdates",
-                    Entity = "TrafficUpdates",
+                    DisplayName = "Like Article",
+                    Name = Permission.LikeArticle,
+                    Entity = "Article",
+                    Action = "Like"
+                }, new Privilege
+                {
+                    ID = 25,
+                    DisplayName = "Create ArticleComment",
+                    Name = Permission.CreateArticleComment,
+                    Entity = "ArticleComment",
+                    Action = "Create"
+                }, new Privilege
+                {
+                    ID = 26,
+                    DisplayName = "Like ArticleComment",
+                    Name = Permission.LikeArticleComment,
+                    Entity = "ArticleComment",
+                    Action = "Like"
+                }, new Privilege
+                {
+                    ID = 27,
+                    DisplayName = "Create TrafficUpdate",
+                    Name = Permission.CreateTrafficUpdate,
+                    Entity = "TrafficUpdate",
+                    Action = "Create"
+                }, new Privilege
+                {
+                    ID = 28,
+                    DisplayName = "Read TrafficUpdate",
+                    Name = Permission.ReadTrafficUpdate,
+                    Entity = "TrafficUpdate",
+                    Action = "Read"
+                }, new Privilege
+                {
+                    ID = 29,
+                    DisplayName = "Update TrafficUpdate",
+                    Name = Permission.UpdateTrafficUpdate,
+                    Entity = "TrafficUpdate",
+                    Action = "Update"
+                }, new Privilege
+                {
+                    ID = 30,
+                    DisplayName = "Delete TrafficUpdate",
+                    Name = Permission.DeleteTrafficUpdate,
+                    Entity = "TrafficUpdate",
                     Action = "Delete"
                 }
 
@@ -234,28 +278,28 @@ namespace CorporateArena.Infrastructure
                 }, new RolePrivilege
                 {
                     ID = 2,
-                    PrivilegeID = 6,
+                    PrivilegeID = 7,
                     RoleID = 2
                 }, new RolePrivilege
                 {
                     ID = 3,
-                    PrivilegeID = 10,
+                    PrivilegeID = 12,
                     RoleID = 2
                 }, new RolePrivilege
                 {
                     ID = 4,
-                    PrivilegeID = 14,
+                    PrivilegeID = 16,
                     RoleID = 2
                 },
                  new RolePrivilege
                 {
                     ID = 5,
-                    PrivilegeID = 18,
+                    PrivilegeID = 20,
                     RoleID = 2
                 }, new RolePrivilege
                 {
                     ID = 6,
-                    PrivilegeID = 22,
+                    PrivilegeID = 28,
                     RoleID = 2
                 }, new RolePrivilege
                 {
@@ -393,6 +437,41 @@ namespace CorporateArena.Infrastructure
                      PrivilegeID = 24,
                      RoleID = 1
                  }
+
+
+
+                 , new RolePrivilege
+                 {
+                     ID = 31,
+                     PrivilegeID = 25,
+                     RoleID = 1
+                 }, new RolePrivilege
+                 {
+                     ID = 32,
+                     PrivilegeID = 26,
+                     RoleID = 1
+                 }, new RolePrivilege
+                 {
+                     ID = 33,
+                     PrivilegeID = 27,
+                     RoleID = 1
+                 }, new RolePrivilege
+                 {
+                     ID = 34,
+                     PrivilegeID = 28,
+                     RoleID = 1
+                 },
+                 new RolePrivilege
+                 {
+                     ID = 35,
+                     PrivilegeID = 29,
+                     RoleID = 1
+                 }, new RolePrivilege
+                 {
+                     ID = 36,
+                     PrivilegeID = 30,
+                     RoleID = 1
+                 }
             );
 
             modelBuilder.Entity<User>().HasData(
@@ -405,7 +484,8 @@ namespace CorporateArena.Infrastructure
                     LastName="User",
                     UserName="System Administrator",
                     IsActive=true,
-                    ID=1
+                    ID=1,
+                    Password="test"
                 }    
                 
             );

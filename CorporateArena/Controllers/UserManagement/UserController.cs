@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CorporateArena.Domain;
+using CorporateArena.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,8 @@ namespace CorporateArena.Presentation
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.CreateUser)]
         [HttpPost("RegisterNewUser")]
         public async Task<IActionResult> RegisterNewUser(User data)
         {
@@ -80,9 +83,9 @@ namespace CorporateArena.Presentation
         /// </summary>
         /// <returns></returns>
 
-        
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.ReadUser)]
         [HttpGet("GetAllUsers")]
-      //  [Authorize]
         public async Task<IActionResult> GetAllUsers()
         {
             var result = await _service.GetAllUsersAsync();
@@ -95,6 +98,8 @@ namespace CorporateArena.Presentation
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.ReadUser)]
         [HttpGet("GetUserByID/{ID}")]
         public async Task<IActionResult> GetUserByID(int ID)
         {
@@ -106,6 +111,8 @@ namespace CorporateArena.Presentation
         /// 
         /// </summary>
         /// <returns></returns>
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.ReadUser)]
         [HttpGet("GetAllUserRoles")]
         public async Task<IActionResult> GetAllUserRoles()
         {
@@ -120,6 +127,8 @@ namespace CorporateArena.Presentation
         /// <param name="roleID"></param>
         /// <param name="userID"></param>
         /// <returns></returns>
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.AssignRoleToUser)]
         [HttpPost("AssignRoleToUser/{roleID}/{userID}")]
         public async Task<IActionResult> AssignRoleToUser(int roleID, int userID)
         {
@@ -131,10 +140,10 @@ namespace CorporateArena.Presentation
         /// 
         /// </summary>
         /// <returns></returns>
-        [HttpPost("CreateSystemUser")]
-        public async Task<IActionResult> CreateSystemUser()
+        [HttpPost("ActivateSystemUser")]
+        public async Task<IActionResult> ActivateSystemUser()
         {
-            var result = await _service.SaveSystemUser();
+            var result = await _service.ActivateSystemUserAsync();
             return Ok(result);
         }
     }

@@ -20,17 +20,7 @@ namespace CorporateArena.Domain
 
         public async Task<SaveResponse> DeleteVacancyAsync(int ID,int userID)
         {
-            var userExist = await _uService.CheckIfUserExist(userID);
-            if (!userExist)
-                return new SaveResponse { status = false, Result = "User Not Found" };
-
-            string name = "DeleteVacancy";
-            var permission = await _uService.CheckforPermission(userID, name);
-
-            if (!permission)
-                return new SaveResponse { Result = "User does not have permission to perform this action" };
-
-            
+                     
 
             await _vRepo.deleteAsync(ID);
 
@@ -53,32 +43,13 @@ namespace CorporateArena.Domain
 
         public async Task<SaveResponse> SaveVacancyAsync(Vacancy data)
         {
-            var userExist = await _uService.CheckIfUserExist(data.UserCreated);
-            if (!userExist)
-                return new SaveResponse { status = false, Result = "User Not Found" };
-
-            string name = "CreateVacancy";
-            var permission = await _uService.CheckforPermission(data.UserCreated, name);
-
-            if (!permission)
-                return new SaveResponse { Result = "User does not have permission to perform this action" };
-
+            
             int VID = await _vRepo.insertAsync(data);
             return new SaveResponse { ID = VID, status = true, Result = "Vacancy successfully created" };
         }
 
         public async Task<SaveResponse> UpdateVacancyAsync(Vacancy data)
         {
-            var userExist = await _uService.CheckIfUserExist(data.UserCreated);
-            if (!userExist)
-                return new SaveResponse { status = false, Result = "User Not Found" };
-
-            string name = "UpdateArticle";
-            var permission = await _uService.CheckforPermission(data.UserCreated, name);
-
-            if (!permission)
-                return new SaveResponse { Result = "User does not have permission to perform this action" };
-
             await _vRepo.updateAsync(data);
             return new SaveResponse { status = true, Result = "Vacancy successfully updated" };
         }

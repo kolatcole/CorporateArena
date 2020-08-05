@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CorporateArena.Domain;
+using CorporateArena.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,8 @@ namespace CorporateArena.Presentation
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.CreateRole)]
         [HttpPost("SaveRole")]
         public async Task<IActionResult> SaveRole(Role data)
         {
@@ -32,8 +35,10 @@ namespace CorporateArena.Presentation
             return Ok(result);
         }
 
-        [HttpGet("GetAllRoles")]
+
         [Authorize]
+        [AuthorizePermission(Permissions = Permission.ReadRole)]
+        [HttpGet("GetAllRoles")]
         public async Task<IActionResult> GetAllRoles()
         {
             var result = await _service.GetAllRolesAsync();
@@ -46,6 +51,9 @@ namespace CorporateArena.Presentation
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
+
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.ReadRole)]
         [HttpGet("GetRoleByID/{ID}")]
         public async Task<IActionResult> GetRoleByID(int ID)
         {
@@ -60,6 +68,9 @@ namespace CorporateArena.Presentation
         /// <param name="roleID"></param>
         /// <param name="privilegeID"></param>
         /// <returns></returns>
+
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.AssignPrivilegeToRole)]
         [HttpPost("AssignPrivilegetoRole/{roleID}/{privilegeID}")]
         public async Task<IActionResult> AssignPrivilegetoRole(int roleID, int privilegeID)
         {

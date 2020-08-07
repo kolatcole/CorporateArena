@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Text;
 
 namespace CorporateArena.Domain
@@ -38,4 +39,8 @@ namespace CorporateArena.Domain
         public const string UpdateTrafficUpdate = "UpdateTrafficUpdate";
         public const string DeleteTrafficUpdate = "DeleteTrafficUpdate";
     }
+
+    
+
+
 }

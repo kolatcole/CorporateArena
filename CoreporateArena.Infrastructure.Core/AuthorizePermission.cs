@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.JsonWebTokens;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -29,36 +30,60 @@ namespace CorporateArena.Infrastructure
             }
 
 
-            //Read claim from token
+            //Read privileges from token
            
 
-            var emailFromToken = context.HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
-            var _context = context.HttpContext.RequestServices.GetRequiredService<TContext>();
-
-
-            // Get user,role and privileges with email from token
-            var user = _context.AppUsers.Where(x => x.Email == emailFromToken).SingleOrDefault();
-
             
-            var userRole =  _context.UserRoles.Where(x => x.UserID == user.ID).SingleOrDefault();
 
-            if (userRole != null)
+            var privilegesFromToken = context.HttpContext.User.FindFirst(JwtRegisteredClaimNames.Prn)?.Value;
+
+            foreach (var privilege in privilegesFromToken.Split(','))
             {
-                user.Role =  _context.Roles.Where(x => x.ID == userRole.RoleID).Single();
-                var rolePrivileges = _context.RolePrivileges.Where(x => x.RoleID == user.RoleID).ToList();
-                if (rolePrivileges != null)
-                {
-                    
-                    foreach (var rp in rolePrivileges)
-                    {
-                        var priv = _context.Privileges.Where(x => x.ID == rp.PrivilegeID).Single();
+                if (privilege == Permissions)
+                    return;
 
-                        if (priv.Name == Permissions)
-                            return;
-
-                    }
-                }
             }
+
+
+
+
+
+            //var emailFromToken = context.HttpContext.User.FindFirst(ClaimTypes.Email)?.Value;
+            //var _context = context.HttpContext.RequestServices.GetRequiredService<TContext>();
+
+
+            //// Get user,role and privileges with email from token
+            //var user = _context.AppUsers.Where(x => x.Email == emailFromToken).SingleOrDefault();
+
+
+
+
+
+
+
+
+
+
+
+            //var userRole =  _context.UserRoles.Where(x => x.UserID == user.ID).SingleOrDefault();
+
+            //if (userRole != null)
+            //{
+            //    user.Role =  _context.Roles.Where(x => x.ID == userRole.RoleID).Single();
+            //    var rolePrivileges = _context.RolePrivileges.Where(x => x.RoleID == user.RoleID).ToList();
+            //    if (rolePrivileges != null)
+            //    {
+
+            //        foreach (var rp in rolePrivileges)
+            //        {
+            //            var priv = _context.Privileges.Where(x => x.ID == rp.PrivilegeID).Single();
+
+            //            if (priv.Name == Permissions)
+            //                return;
+
+            //        }
+            //    }
+            //}
 
 
             // check if permission in attribute matches privilege value in db

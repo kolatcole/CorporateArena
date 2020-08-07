@@ -20,5 +20,6 @@ namespace CorporateArena.Domain
         Task<bool> CheckforPermission(int ID, string name);
         Task<List<UserRole>> GetUserRoles();
         Task<SaveResponse> ActivateSystemUserAsync();
+        Task<User> GetUserWithUsernameAsync(string username);
     }
 }

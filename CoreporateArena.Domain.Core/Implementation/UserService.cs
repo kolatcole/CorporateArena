@@ -55,6 +55,14 @@ namespace CorporateArena.Domain
             return user;
         }
 
+        public async Task<User> GetUserWithUsernameAsync(string username)
+        {
+            var user = await _uRepo.GetUserByUsername(username);
+            //user.Role.Privileges=await _pRepo.get
+
+            return user;
+        }
+
         public async Task<Response> LoginAsync(string username, string password)
         {
             var response = await _uRepo.Login(username, password);
@@ -85,7 +93,7 @@ namespace CorporateArena.Domain
             // check if username is already in use
 
 
-            var UsernameisUsed = await _uRepo.GetUserByUsername(data.UserName);
+            var UsernameisUsed = await _uRepo.CheckUserByUsername(data.UserName);
             if (UsernameisUsed)
                 return new SaveResponse { Result = "Username is already in use", status = false };
 

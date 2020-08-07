@@ -107,6 +107,15 @@ namespace CorporateArena.Presentation
             return Ok(result);
         }
 
+        [Authorize]
+        [AuthorizePermission(Permissions = Permission.ReadUser)]
+        [HttpGet("GetUserByUsername/{username}")]
+        public async Task<IActionResult> GetUserByUsername(string username)
+        {
+            var result = await _service.GetUserWithUsernameAsync(username);
+            return Ok(result);
+        }
+
         /// <summary>
         /// 
         /// </summary>

@@ -222,12 +222,38 @@ namespace CorporateArena.Infrastructure
 
         public string CreateToken(User user)
         {
+
+            string permissions = "";
+
+            var userRole = _context.UserRoles.Where(x => x.UserID == user.ID).SingleOrDefault();
+
+            if (userRole != null)
+            {
+                user.Role = _context.Roles.Where(x => x.ID == userRole.RoleID).Single();
+                var rolePrivileges = _context.RolePrivileges.Where(x => x.RoleID == user.RoleID).ToList();
+                if (rolePrivileges != null)
+                {
+
+                    foreach (var rp in rolePrivileges)
+                    {
+                        var priv = _context.Privileges.Where(x => x.ID == rp.PrivilegeID).Single();
+
+                        permissions += priv.Name +',';
+                    }
+                }
+            }
+
+
+
+
+
             var claims = new[] {
                 new Claim(JwtRegisteredClaimNames.Sub,user.UserName),
                 new Claim(JwtRegisteredClaimNames.NameId,user.ID.ToString()),
                 new Claim(JwtRegisteredClaimNames.UniqueName,user.FirstName),
                 new Claim(JwtRegisteredClaimNames.FamilyName,user.LastName),
-                new Claim(JwtRegisteredClaimNames.Email,user.Email)
+                new Claim(JwtRegisteredClaimNames.Email,user.Email),
+                new Claim(JwtRegisteredClaimNames.Prn,permissions)
             };
             var stoken = new JwtSecurityToken(
                         issuer: "",
@@ -436,8 +462,22 @@ namespace CorporateArena.Infrastructure
             }
         }
 
+        public async Task<User> GetUserByUsername(string username)
+        {
+            try
+            {
+                var user = await _context.AppUsers.Where(x => x.UserName == username).SingleOrDefaultAsync();
+                return user;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         // return true if username is already used, false if otherwise
-        public async Task<bool> GetUserByUsername(string username)
+        public async Task<bool> CheckUserByUsername(string username)
         {
             var status = false;
             

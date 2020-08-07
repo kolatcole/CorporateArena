@@ -23,7 +23,7 @@ namespace CorporateArena.Domain
 
         Task<bool> GetUserByEmail(string email);
 
-        Task<bool> GetUserByUsername(string username);
+        Task<bool> CheckUserByUsername(string username);
 
         Task<List<UserRole>> GetUserRoles();
 
@@ -32,5 +32,7 @@ namespace CorporateArena.Domain
         Task<User> GetUserByID(int ID);
 
         Task Update(User data);
+
+        Task<User> GetUserByUsername(string username);
     }
 }

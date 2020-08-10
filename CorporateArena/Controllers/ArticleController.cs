@@ -106,5 +106,18 @@ namespace CorporateArena.Presentation
             var result = await _service.DeleteArticleAsync(ArticleID,UserID);
             return Ok(result);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        [Authorize]
+        [HttpPost("ApproveArticle")]
+        public async Task<IActionResult> ApproveArticle(int ID)
+        {
+            var result = await _service.ApproveArticle(ID);
+            return Ok(result);
+        }
     }
 }

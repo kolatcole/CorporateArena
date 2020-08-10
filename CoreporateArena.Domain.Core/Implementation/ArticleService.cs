@@ -174,5 +174,14 @@ namespace CorporateArena.Domain
 
 
         }
+
+        public async Task<SaveResponse> ApproveArticle(int ID)
+        {
+            var status = await _repo.ApproverAsync(ID);
+
+            var response = new SaveResponse { Result = "Article was approved", status = true };
+
+            return response;
+        }
     }
 }

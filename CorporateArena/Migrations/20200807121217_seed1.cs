@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace CorporateArena.Presentation.Core.Migrations
 {
-    public partial class seed : Migration
+    public partial class seed1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +13,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(maxLength: 150, nullable: true),
                     AuthorID = table.Column<int>(nullable: false),
                     isApproved = table.Column<bool>(nullable: false),
@@ -32,7 +33,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Riddle = table.Column<string>(nullable: true),
                     UserCreated = table.Column<int>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
@@ -49,7 +50,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Email = table.Column<string>(nullable: true),
                     Username = table.Column<string>(nullable: true),
                     Message = table.Column<string>(nullable: true),
@@ -65,7 +66,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     RoleID = table.Column<int>(nullable: false),
                     PrivilegeID = table.Column<int>(nullable: false)
                 },
@@ -79,7 +80,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
                     UserCreated = table.Column<int>(nullable: true),
@@ -97,7 +98,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     UserCreated = table.Column<int>(nullable: false),
@@ -113,7 +114,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
                     UserCreated = table.Column<int>(nullable: true),
@@ -131,7 +132,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Email = table.Column<string>(nullable: true),
                     Url = table.Column<string>(nullable: true),
                     JobTitle = table.Column<string>(nullable: true),
@@ -154,7 +155,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(maxLength: 150, nullable: true),
                     Content = table.Column<string>(nullable: true),
                     ArticleID = table.Column<int>(nullable: false),
@@ -179,7 +180,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserCreated = table.Column<int>(nullable: false),
                     ArticleID = table.Column<int>(nullable: false)
                 },
@@ -199,7 +200,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     UserCreated = table.Column<int>(nullable: false),
                     Answer = table.Column<string>(nullable: true),
@@ -221,7 +222,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
                     UserCreated = table.Column<int>(nullable: true),
@@ -254,7 +255,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(nullable: true),
                     DisplayName = table.Column<string>(nullable: true),
                     Action = table.Column<string>(nullable: true),
@@ -277,7 +278,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserCreated = table.Column<int>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     Comment = table.Column<string>(nullable: true),
@@ -299,7 +300,7 @@ namespace CorporateArena.Presentation.Core.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserCreated = table.Column<int>(nullable: false),
                     ArticleID = table.Column<int>(nullable: false),
                     CommentID = table.Column<int>(nullable: false),
@@ -401,19 +402,19 @@ namespace CorporateArena.Presentation.Core.Migrations
                 columns: new[] { "ID", "DateCreated", "DateModified", "DisplayName", "Name", "UserCreated", "UserModified" },
                 values: new object[,]
                 {
-                    { 2, new DateTime(2020, 8, 5, 12, 24, 15, 658, DateTimeKind.Local).AddTicks(2717), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Basic", "Basic", 1, null },
-                    { 1, new DateTime(2020, 8, 5, 12, 24, 15, 656, DateTimeKind.Local).AddTicks(672), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "SuperUser", "SuperUser", 1, null }
+                    { 2, new DateTime(2020, 8, 7, 13, 12, 16, 612, DateTimeKind.Local).AddTicks(9211), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Basic", "Basic", 1, null },
+                    { 1, new DateTime(2020, 8, 7, 13, 12, 16, 611, DateTimeKind.Local).AddTicks(3609), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "SuperUser", "SuperUser", 1, null }
                 });
 
             migrationBuilder.InsertData(
                 table: "UserRoles",
                 columns: new[] { "ID", "DateCreated", "DateModified", "RoleID", "UserCreated", "UserID", "UserModified" },
-                values: new object[] { 1, new DateTime(2020, 8, 5, 12, 24, 15, 659, DateTimeKind.Local).AddTicks(7119), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, null, 1, null });
+                values: new object[] { 1, new DateTime(2020, 8, 7, 13, 12, 16, 613, DateTimeKind.Local).AddTicks(8324), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, null, 1, null });
 
             migrationBuilder.InsertData(
                 table: "AppUsers",
                 columns: new[] { "ID", "DateCreated", "DateModified", "Email", "FirstName", "IsActive", "IsDeleted", "LastName", "OtherName", "Password", "PhoneNumber", "RoleID", "Token", "UserCreated", "UserModified", "UserName" },
-                values: new object[] { 1, new DateTime(2020, 8, 5, 12, 24, 15, 659, DateTimeKind.Local).AddTicks(315), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "tkolawole@Inspirecoders.com", "System", true, null, "User", null, "test", null, 1, null, null, null, "System Administrator" });
+                values: new object[] { 1, new DateTime(2020, 8, 7, 13, 12, 16, 613, DateTimeKind.Local).AddTicks(3353), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "tkolawole@Inspirecoders.com", "System", true, null, "User", null, "test", null, 1, null, null, null, "System Administrator" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppUsers_RoleID",

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -135,6 +136,34 @@ namespace CorporateArena.Infrastructure
             {
                 throw ex;
             }
+        }
+
+        public async Task<bool> ApproverAsync(int ID)
+        {
+            
+            try
+            {
+                var article = await _context.Articles.FindAsync(ID);
+
+                if (article.isApproved == false)
+                {
+                    article.isApproved = true;
+                    article.DateModified = DateTime.Now;
+                }
+                    
+
+                _context.Articles.Update(article);
+                await _context.SaveChangesAsync();
+                return article.isApproved;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+
+
+            
+
         }
     }
 }

@@ -111,12 +111,15 @@ namespace CorporateArena
                 };
             });
 
-
-
-            
-            services.AddDbContext<TContext>(opt => {
-                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("CorporateArena.Presentation.Core"));
+            services.AddEntityFrameworkNpgsql().AddDbContext<TContext>(opt =>
+            {
+                opt.UseNpgsql(Configuration.GetConnectionString("PostgreConnection"), b => b.MigrationsAssembly("CorporateArena.Presentation.Core"));
             });
+
+
+            //services.AddDbContext<TContext>(opt => {
+            //    opt.UseSqlServer(Configuration.GetConnectionString("PostgreConnection"), b => b.MigrationsAssembly("CorporateArena.Presentation.Core"));
+            //});
 
             services.AddScoped <IRepo<RolePrivilege> ,RolePrivilegeRepo>();
             services.AddScoped<IUserRepo, UserRepo>();

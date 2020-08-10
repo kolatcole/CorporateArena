@@ -24,5 +24,7 @@ namespace CorporateArena.Domain
         Task<bool> insertListAsync(List<Article> data);
 
         Task updateAsync(Article data);
+
+        Task<bool> ApproverAsync(int ID);
     }
 }
